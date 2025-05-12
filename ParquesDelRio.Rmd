@@ -1,0 +1,173 @@
+---
+title: "<span style='color:#305f72'><center><br>Epífitas al servicio de la ciudad</center>"
+subtitle: 'Monitoreo Parques del Rio'
+author: "<center><a href='mailto:judith.carmona@udea.edu.co'>Maria Judith Carmona. Investigadora – Fundación Jardín Botánico de Medellín.</a></center>"
+date: "<center>Date: 07-11-2023 </center>"
+output: html_document
+---
+
+Cargar librerías 
+
+```{r}
+library(tidyverse) # databases
+library(dplyr) # databases
+library(tidyr) # databases
+library(ggplot2) # gráficas
+library(cowplot) # organizar gráficas
+library(lubridate) # Fechas
+```
+
+Load database
+
+# Altura y mortalidad
+
+```{r}
+df <- read.csv("databases/total.csv")
+
+# ANOVA
+result <- aov( ~ Altura.planta, data = df)
+summary(result)
+
+# ANOVA
+result2 <- aov(X1.07.23 ~ Nombre.Árbol, data = df)
+summary(result2)
+tukey_result <- TukeyHSD(result2)
+summary(tukey_result)
+```
+
+# Mortalidad por especie
+
+```{r}
+df_mort <- df %>%
+  select(Nombre.común.actualizado, starts_with("Mortalidad")) %>%
+  mutate(across(starts_with("Mortalidad"), ~ as.numeric(.))) %>%
+  mutate_at(vars(2:ncol(.)), ~ ifelse(. %in% c(0, NA), 0, 1)) %>%
+  rowSums(.)
+colnames(df_mort) <- c("Especie", 1:11)
+
+# df_mort1 <- df_mort %>%
+#   group_by(Especie) %>%
+#   summarize(Total = n(),
+#             across(1:ncol(.), ~ sum(.))) %>%
+#   ungroup() %>%
+#   mutate(M1 = Total-1,
+#          M2 = 2-1,
+#          M3 = 3-2,
+#          M4 = 4-3,
+#          M5 = 5-4,
+#          M6 = 6-5,
+#          M7 = )
+
+# # Calculate the cumulative reduction for each monitoring event
+# for (i in 1:11) {
+#   col_name <- paste0("Monitoring_", i)
+#   df_mort1 <- df_mort1 %>%
+#     mutate(!!col_name := Total - sum(!!sym(as.character(i))))
+# }
+
+# Create a plot
+ggplot(reshaped_df, aes(x = Monitoreo, y = Mortalidad, fill = Especie)) +
+  geom_line() +
+  labs(x = "Monitoreo", y = "Mortalidad") +
+  theme_light() +
+  guides(color = FALSE)
+```
+
+```{r}
+mort <- read.csv("databases/mort.csv")
+colnames(mort) <- c("id", "Familia", "Especie","01/03/16", "12/04/16",
+                    "12/05/16",	"16/06/16",	"18/09/16",
+                    "1/05/17",	"1/06/17",	"1/12/17",	
+                    "5/02/18", "12/07/18",	"12/12/18",	"1/07/23")
+
+mort1 <- mort %>%
+  select(-id, -Familia) %>%
+  pivot_longer(cols = -Especie, 
+               names_to = "Monitoreo", 
+               values_to = "Supervivencia") %>%
+  mutate(Fecha = dmy(Monitoreo)) %>%
+  select(Especie, Fecha, Supervivencia) %>%
+  ungroup(.) %>%
+  as.data.frame(.)
+
+plot = ggplot(mort1, 
+       aes(x = Fecha, y = Supervivencia, group = Especie, color = Especie)) +
+  geom_line() +
+  labs(x = "Fecha", y = "Supervivencia", color = "Especie") +
+  theme_light() +
+  guides(color = guide_legend(label.theme = element_text(face = "italic")))
+
+ggsave("Supervivencia2023.png", plot, width = 5, height = 3, units = "in", dpi = 300)
+```
+
+# Fenología
+
+## Floracion 
+
+```{r}
+fen <- read.csv("databases/fenol.csv")
+
+flor <- fen %>%
+  group_by(Especie.epífita) %>%
+  mutate(across(starts_with("Floracion"), ~ as.numeric(.))) %>%
+  summarize(across(starts_with("Floracion"), ~ sum(.)))
+
+colnames(flor) <- c("Especie", "12/04/16", "12/05/16",	
+                    "16/06/16",	"18/09/16", "1/05/17",
+                    "1/06/17",	"1/12/17", "5/02/18",
+                    "12/07/18",	"12/12/18",	"1/07/23")
+
+flor1 <- flor %>%
+  pivot_longer(cols = -Especie, 
+               names_to = "Monitoreo", 
+               values_to = "Floracion") %>%
+  mutate(Fecha = dmy(Monitoreo)) %>%
+  select(Especie, Fecha, Floracion) %>%
+  ungroup(.) %>%
+  as.data.frame(.)
+
+plot1 = ggplot(flor1, 
+       aes(x = Fecha, y = Floracion, group = Especie, color = Especie)) +
+  geom_point() +
+  labs(x = "Fecha", y = "Floracion", color = "Especie") +
+  theme_light() +
+  guides(color = guide_legend(label.theme = element_text(face = "italic")))
+```
+
+## Fructificacion
+
+```{r}
+fru <- fen %>%
+  group_by(Especie.epífita) %>%
+  mutate(across(starts_with("fructificacion"), ~ as.numeric(.))) %>%
+  summarize(across(starts_with("fructificacion"), ~ sum(.)))
+
+colnames(fru) <- c("Especie", "12/04/16", "12/05/16",	
+                    "16/06/16",	"18/09/16", "1/05/17",
+                    "1/06/17",	"1/12/17", "5/02/18",
+                    "12/07/18",	"12/12/18",	"1/07/23")
+
+fru1 <- fru %>%
+  pivot_longer(cols = -Especie, 
+               names_to = "Monitoreo", 
+               values_to = "Fructificacion") %>%
+  mutate(Fecha = dmy(Monitoreo)) %>%
+  select(Especie, Fecha, Fructificacion) %>%
+  ungroup(.) %>%
+  as.data.frame(.)
+
+plot2 = ggplot(fru1, 
+       aes(x = Fecha, y = Fructificacion, group = Especie, color = Especie)) +
+  geom_point() +
+  labs(x = "Fecha", y = "Fructificacion", color = "Especie") +
+  theme_light() +
+  guides(color = guide_legend(label.theme = element_text(face = "italic")))
+```
+
+```{r}
+plot = plot_grid(plot1, plot2, labels = "AUTO")
+plot
+
+ggsave("Fenologia2023.png", plot, width = 13, height = 3, units = "in", dpi = 300)
+```
+
