@@ -449,7 +449,7 @@ list(
 )
 ```
 
-## 6.3 especie del árbol
+## 6.3) Cox con fragilidad por especie del árbol
 
 ```{r}
 df_surv <- df_surv %>%
