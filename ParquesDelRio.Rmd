@@ -1,173 +1,1313 @@
 ---
 title: "<span style='color:#305f72'><center><br>Epífitas al servicio de la ciudad</center>"
-subtitle: 'Monitoreo Parques del Rio'
-author: "<center><a href='mailto:judith.carmona@udea.edu.co'>Maria Judith Carmona. Investigadora – Fundación Jardín Botánico de Medellín.</a></center>"
+subtitle: "Monitoreo Parques del Río"
+author: "<center><a href='mailto:judith.carmona@udea.edu.co'>María Judith Carmona — Fundación Jardín Botánico de Medellín</a></center>"
 date: "<center>Date: 07-11-2023 </center>"
 output: html_document
 ---
 
-Cargar librerías 
-
 ```{r}
-library(tidyverse) # databases
-library(dplyr) # databases
-library(tidyr) # databases
-library(ggplot2) # gráficas
-library(cowplot) # organizar gráficas
-library(lubridate) # Fechas
+library(tidyverse)
+library(janitor)
+library(stringr)
+library(lubridate)
+library(forcats)
+library(readr)
+library(survival)
+library(survminer)
+library(cowplot)
+library(patchwork)
+library(RColorBrewer)
+
+dir.create("output", showWarnings = FALSE, recursive = TRUE)
+dir.create("plots",  showWarnings = FALSE, recursive = TRUE)
 ```
 
-Load database
 
-# Altura y mortalidad
-
-```{r}
-df <- read.csv("databases/total.csv")
-
-# ANOVA
-result <- aov( ~ Altura.planta, data = df)
-summary(result)
-
-# ANOVA
-result2 <- aov(X1.07.23 ~ Nombre.Árbol, data = df)
-summary(result2)
-tukey_result <- TukeyHSD(result2)
-summary(tukey_result)
-```
-
-# Mortalidad por especie
+# 0) Cargar datos y fijar nombres de columnas
 
 ```{r}
-df_mort <- df %>%
-  select(Nombre.común.actualizado, starts_with("Mortalidad")) %>%
-  mutate(across(starts_with("Mortalidad"), ~ as.numeric(.))) %>%
-  mutate_at(vars(2:ncol(.)), ~ ifelse(. %in% c(0, NA), 0, 1)) %>%
-  rowSums(.)
-colnames(df_mort) <- c("Especie", 1:11)
+# ----- Carga -----
+df <- read_csv("databases/total.csv", show_col_types = FALSE) %>% clean_names()
 
-# df_mort1 <- df_mort %>%
-#   group_by(Especie) %>%
-#   summarize(Total = n(),
-#             across(1:ncol(.), ~ sum(.))) %>%
-#   ungroup() %>%
-#   mutate(M1 = Total-1,
-#          M2 = 2-1,
-#          M3 = 3-2,
-#          M4 = 4-3,
-#          M5 = 5-4,
-#          M6 = 6-5,
-#          M7 = )
+# ----- Nombres de columnas (ajusta solo si difieren) -----
+col_parque        <- "sitio"
+col_id_arbol      <- "arbol_id"
+col_espec_arbol   <- "especie_arbol"
+col_familia_epif  <- "familia"
+col_espec_epif    <- "especie_epifita"
+col_corteza       <- grep("(?i)^corteza$", names(df), value = TRUE)[1]
+col_id_ind        <- "id_epifita"
+col_sau           <- grep("^codigo.*sau|(^|_)sau($|_)", names(df), value = TRUE)[1]
+col_obs2023       <- grep("(?i)^observaciones_2023$", names(df), value = TRUE)[1]
+col_pres2023      <- grep("(?i)desaparecid.*muert.*2023|^presencia.*2023$", names(df), value = TRUE)[1]
 
-# # Calculate the cumulative reduction for each monitoring event
-# for (i in 1:11) {
-#   col_name <- paste0("Monitoring_", i)
-#   df_mort1 <- df_mort1 %>%
-#     mutate(!!col_name := Total - sum(!!sym(as.character(i))))
-# }
+# ID estándar interno
+df <- df %>% mutate(ind_id = .data[[col_id_ind]])
 
-# Create a plot
-ggplot(reshaped_df, aes(x = Monitoreo, y = Mortalidad, fill = Especie)) +
-  geom_line() +
-  labs(x = "Monitoreo", y = "Mortalidad") +
-  theme_light() +
-  guides(color = FALSE)
+# ----- Corrección de “typos” de columnas (una sola vez) -----
+names(df) <- names(df) |>
+  str_replace("^nuevas_hojas_112_12_2018$", "nuevas_hojas_12_12_2018") |>
+  str_replace("^floracion_5_02_2018$", "floracion_05_02_2018") |>
+  str_replace("^frutificacion_12_12_2018$", "fructificacion_12_12_2018")
+
+# Chequeo de existencia de columnas clave
+stopifnot(all(c(col_parque, col_id_arbol, col_espec_arbol, col_espec_epif, col_familia_epif, col_corteza, col_id_ind) %in% names(df)))
+```
+
+# 1) Normalizar parques y siglas
+
+```{r}
+df <- df %>%
+  mutate(
+    parque_norm = case_when(
+      str_detect(.data[[col_parque]], regex("refugio", ignore_case = TRUE)) ~ "Parque Lineal El Refugio",
+      str_detect(.data[[col_parque]], regex("conquistadores|colseguros", ignore_case = TRUE)) ~ "Parque de Conquistadores",
+      str_detect(.data[[col_parque]], regex("tri[aá]ngulo|picacha|quebrada", ignore_case = TRUE)) ~
+        "Parque El Triángulo y quebrada La Picacha",
+      TRUE ~ "Parque El Triángulo y quebrada La Picacha"
+    ),
+    parque_sigla = recode(parque_norm,
+      "Parque Lineal El Refugio" = "PLR",
+      "Parque de Conquistadores" = "PDC",
+      "Parque El Triángulo y quebrada La Picacha" = "PTP"
+    )
+  )
+```
+
+# 2) Número de árboles y epífitas por parque
+
+```{r}
+tabla1_parque <- df %>%
+  distinct(.data[[col_id_arbol]], parque_norm) %>%
+  count(parque_norm, name = "n_arboles") %>%
+  left_join(df %>% count(parque_norm, name = "n_epifitas"), by = "parque_norm") %>%
+  arrange(parque_norm)
+
+tabla1_parque
+write_csv(tabla1_parque, "output/tabla1_parque.csv")
+```
+
+
+# 3) Epífitas canónicas (sin autor) y catálogo
+
+```{r}
+# Mapeo flexible a "epifita_canon"
+fix_epifitas <- tribble(
+  ~pattern,                   ~epifita_canon,
+  "(?i)anthurium\\s*salv",    "Anthurium salvinii",
+  "(?i)asplenium",            "Asplenium sp.",
+  "(?i)aechmea\\s*fasci",     "Aechmea fasciata",
+  "(?i)billbergia\\s*nut",    "Billbergia nutans",
+  "(?i)guzmania",             "Guzmania sp.",
+  "(?i)neoregelia\\s*coral",  "Neoregelia carolinae",
+  "(?i)cattleya",             "Cattleya sp.",
+  "(?i)schomburgkia|laelia",  "Schomburgkia sp."
+)
+
+df <- df %>% mutate(epifita_canon = NA_character_)
+for(i in seq_len(nrow(fix_epifitas))){
+  pat <- fix_epifitas$pattern[i]
+  val <- fix_epifitas$epifita_canon[i]
+  idx <- str_detect(df[[col_espec_epif]], regex(pat))
+  df$epifita_canon[idx] <- val
+}
+df <- df %>% mutate(epifita_canon = coalesce(epifita_canon, .data[[col_espec_epif]]))
+
+catalogo_epifitas <- df %>%
+  count(.data[[col_familia_epif]], epifita_canon, name = "n_individuos") %>%
+  arrange(.data[[col_familia_epif]], desc(n_individuos))
+
+catalogo_epifitas
+write_csv(catalogo_epifitas, "output/catalogo_epifitas.csv")
+```
+
+# 4) Catálogo de forófitos (familia, especie, corteza, n árboles, n epífitas)
+
+```{r}
+df <- df %>% mutate(especie_arbol_norm = str_squish(str_trim(.data[[col_espec_arbol]])))
+
+familia_lookup <- tribble(
+  ~especie_arbol,           ~familia_arbol,
+  "Ficus lyrata",           "Moraceae",
+  "Erythrina fusca",        "Fabaceae",
+  "Pithecellobium dulce",   "Fabaceae",
+  "Ficus elastica",         "Moraceae",
+  "Syzygium jambos",        "Myrtaceae",
+  "Caesalpinia pluviosa",   "Fabaceae",
+  "Lagerstroemia speciosa", "Lythraceae",
+  "Erythrina poeppigiana",  "Fabaceae",
+  "Bauhinia picta",         "Fabaceae",
+  "Zygia longifolia",       "Fabaceae",
+  "Ficus benjamina",        "Moraceae",
+  "Spathodea campanulata",  "Bignoniaceae",
+  "Fraxinus uhdei",         "Oleaceae",
+  "Jacaranda mimosifolia",  "Bignoniaceae"
+)
+
+stopifnot(!is.na(col_corteza), col_corteza %in% names(df))
+
+catalogo_forofitos <- df %>%
+  group_by(especie_arbol_norm) %>%
+  summarise(
+    n_arboles = n_distinct(.data[[col_id_arbol]]),
+    n_individuos_epifitos = n(),
+    corteza_clase = first(.data[[col_corteza]]),
+    .groups = "drop"
+  ) %>%
+  left_join(familia_lookup, by = c("especie_arbol_norm" = "especie_arbol")) %>%
+  transmute(
+    familia_arbol,
+    especie_arbol = especie_arbol_norm,
+    corteza_clase,
+    n_arboles,
+    n_individuos_epifitos
+  ) %>%
+  arrange(desc(n_individuos_epifitos), familia_arbol, especie_arbol)
+
+catalogo_forofitos
+write_csv(catalogo_forofitos, "output/catalogo_forofitos.csv")
+```
+
+# 5) Eventos de mortalidad
+
+```{r}
+# --- Detectores de columnas de eventos por prefijo (no por fecha en nombre) ---
+cols_mort  <- names(df)[str_detect(names(df), regex("^mortalidad", ignore_case = TRUE))]
+cols_desap <- names(df)[str_detect(names(df), regex("^desaparici[oó]n", ignore_case = TRUE))]
+
+get_idx <- function(x) as.integer(str_extract(x, "\\d+"))
+
+# --- Largo: mortalidad ---
+mort_long <- df %>%
+  select(ind_id, all_of(cols_mort)) %>%
+  mutate(across(all_of(cols_mort), as.character)) %>%
+  pivot_longer(cols = all_of(cols_mort), names_to = "col", values_to = "val") %>%
+  transmute(
+    ind_id,
+    evento_tipo   = "mortalidad",
+    monitoreo_idx = get_idx(col),
+    es_evento     = if_else(str_detect(val %||% "", "^\\s*1\\s*$"), 1L, 0L)
+  ) %>%
+  filter(es_evento == 1L, !is.na(monitoreo_idx)) %>%
+  select(-es_evento)
+
+# --- Largo: desaparición ---
+desap_long <- df %>%
+  select(ind_id, all_of(cols_desap)) %>%
+  mutate(across(all_of(cols_desap), as.character)) %>%
+  pivot_longer(cols = all_of(cols_desap), names_to = "col", values_to = "val") %>%
+  transmute(
+    ind_id,
+    evento_tipo   = "desaparicion",
+    monitoreo_idx = get_idx(col),
+    es_evento     = if_else(str_detect(val %||% "", "^\\s*1\\s*$"), 1L, 0L)
+  ) %>%
+  filter(es_evento == 1L, !is.na(monitoreo_idx)) %>%
+  select(-es_evento)
+
+# --- Primer evento por individuo (índice más temprano) ---
+eventos_idx <- bind_rows(mort_long, desap_long) %>%
+  arrange(ind_id, monitoreo_idx) %>%
+  group_by(ind_id) %>%
+  slice(1) %>%
+  ungroup() %>%
+  rename(primer_evento_tipo = evento_tipo, primer_monitoreo_idx = monitoreo_idx)
+
+# --- Flags auxiliares y causa con prioridad a 2023 ---
+df_flags <- df %>%
+  transmute(
+    ind_id,
+    parque_norm,
+    epifita_canon,
+    sau_flag = if (!is.na(col_sau)) str_detect(str_to_lower(.data[[col_sau]]), "talad") else FALSE,
+    obs_flag = if (!is.na(col_obs2023)) str_detect(str_to_lower(.data[[col_obs2023]]), "tala|poda") else FALSE,
+    pres2023 = if (!is.na(col_pres2023)) str_to_lower(as.character(.data[[col_pres2023]])) else NA_character_
+  ) %>%
+  mutate(
+    antropico_evidencia = sau_flag | obs_flag,
+    vivo_2023 = case_when(
+      pres2023 %in% c("no","0") ~ TRUE,     # re-encontrado vivo
+      pres2023 %in% c("si","sí","1") ~ FALSE,
+      TRUE ~ NA
+    )
+  )
+
+# Fechas de monitoreo
+fechas_lookup <- tribble(
+  ~monitoreo_idx, ~fecha,
+   1, as.Date("2016-04-12"),
+   2, as.Date("2016-05-12"),
+   3, as.Date("2016-06-16"),
+   4, as.Date("2016-09-18"),
+   5, as.Date("2017-05-01"),
+   6, as.Date("2017-06-01"),
+   7, as.Date("2017-12-01"),
+   8, as.Date("2018-02-05"),
+   9, as.Date("2018-07-12"),
+  10, as.Date("2018-12-12"),
+  11, as.Date("2023-07-01")
+)
+
+eventos_idx <- eventos_idx %>%
+  left_join(fechas_lookup, by = c("primer_monitoreo_idx" = "monitoreo_idx")) %>%
+  rename(primer_evento_fecha = fecha)
+
+# Causa final (vivo_2023 > evid. antrópica > evento 2016–2018 > 2023=No)
+df_causas <- df_flags %>%
+  left_join(eventos_idx, by = "ind_id") %>%
+  mutate(
+    causa_final = case_when(
+      vivo_2023 == TRUE ~ "vivo_2023",
+      antropico_evidencia ~ "antropico",
+      !is.na(primer_evento_tipo) & primer_evento_tipo == "mortalidad" ~ "muerte_natural",
+      !is.na(primer_evento_tipo) & primer_evento_tipo == "desaparicion" ~ "desaparecido",
+      is.na(primer_evento_tipo) & vivo_2023 == FALSE ~ "desaparecido",
+      TRUE ~ "desaparecido"
+    )
+  )
+
+# Tablas de causas (total / parque / epifita)
+tabla_causas_total <- df_causas %>%
+  count(causa_final, name = "n") %>%
+  mutate(pct = round(100 * n / sum(n), 1)) %>%
+  arrange(desc(n))
+
+tabla_causas_parque <- df_causas %>%
+  count(parque_norm, causa_final, name = "n") %>%
+  group_by(parque_norm) %>%
+  mutate(pct = round(100 * n / sum(n), 1)) %>%
+  pivot_wider(names_from = causa_final, values_from = n, values_fill = 0) %>%
+  arrange(parque_norm)
+
+tabla_causas_epifita <- df_causas %>%
+  count(epifita_canon, causa_final, name = "n") %>%
+  group_by(epifita_canon) %>%
+  mutate(pct = round(100 * n / sum(n), 1)) %>%
+  pivot_wider(names_from = causa_final, values_from = n, values_fill = 0) %>%
+  arrange(epifita_canon)
+
+tabla_causas_total; tabla_causas_parque; tabla_causas_epifita
+write_csv(tabla_causas_total,  "output/tabla_causas_total.csv")
+write_csv(tabla_causas_parque, "output/tabla_causas_parque.csv")
+write_csv(tabla_causas_epifita,"output/tabla_causas_epifita.csv")
+```
+
+# 6) Supervivencia: modelos KM y Cox
+
+```{r}
+# Columnas para supervivencia
+col_parque     <- "parque_norm"
+col_epifita    <- "epifita_canon"
+col_ubic       <- "ubicacion_en_el_arbol"
+col_altura     <- "altura_planta"
+col_corteza    <- "corteza"
+
+fecha_instalacion_ref <- as.Date("2016-03-01")
+fecha_corte_2023      <- as.Date("2023-07-01")
+
+df_surv <- df %>%
+  select(ind_id, all_of(c(col_id_arbol, col_parque, col_epifita, col_ubic, col_altura, col_corteza))) %>%
+  left_join(df_causas %>% select(ind_id, causa_final, primer_evento_fecha), by = "ind_id") %>%
+  mutate(
+    fecha_instalacion = fecha_instalacion_ref,
+    # si no hay fecha de evento (p.ej., desaparecido sin evento previo), usar fecha_corte_2023
+    fecha_evento = case_when(
+      causa_final %in% c("muerte_natural","desaparecido") ~ coalesce(primer_evento_fecha, fecha_corte_2023),
+      TRUE ~ fecha_corte_2023
+    ),
+    # opcional: si quieres que 'primer_evento_fecha' también quede rellena para estos casos:
+    primer_evento_fecha = if_else(
+      is.na(primer_evento_fecha) & causa_final %in% c("muerte_natural","desaparecido"),
+      fecha_evento, primer_evento_fecha
+    ),
+    time_days   = as.numeric(fecha_evento - fecha_instalacion),
+    time_months = time_days / 30.4375,
+    status_natural = as.integer(causa_final == "muerte_natural"),
+    across(all_of(c(col_parque, col_epifita, col_ubic, col_corteza)), ~forcats::fct_infreq(as.factor(.)))
+  )
+
+# chequeos rápidos
+sum(is.na(df_surv$fecha_instalacion))  # debe ser 0
+sum(is.na(df_surv$fecha_evento))       # debe ser 0
+
+write.csv(df_surv, "output/df_surv.csv", row.names = FALSE)
+
+# KM por especie (sin tabla de riesgo para publicar como PNG)
+labs_epif <- levels(df_surv$epifita_canon)
+
+fit_especie <- survfit(Surv(time_months, status_natural) ~ epifita_canon, data = df_surv)
+
+p_especie <- ggsurvplot(
+  fit_especie, data = df_surv,
+  risk.table = FALSE,                   # sin tabla inferior
+  legend.title = "Especie",
+  legend = "right",                     # leyenda a la derecha
+  legend.labs = labs_epif,              # nombres completos
+  xlab = "Meses desde establecimiento",
+  ylab = "Prob. de supervivencia (natural)"
+)
+
+# Poner la leyenda en cursiva
+p_especie$plot <- p_especie$plot +
+  theme(legend.text = element_text(face = "italic"))
+
+p_especie
+ggsave("plots/KM_epifitas.png", p_especie$plot, width=8, height=5, dpi=300)
+
+# Log-rank por especie
+lr_especie <- survdiff(Surv(time_months, status_natural) ~ epifita_canon, data = df_surv)
+capture.output(lr_especie, file = "output/logrank_epifita.txt")
+```
+
+## 6.1) Supervivencia a 12/24/60/84 meses
+
+```{r}
+extract_km_points <- function(fit, times = c(12,24,60,84)) {
+  ss <- summary(fit, times = times)
+  tibble(
+    strata = ss$strata,
+    time   = ss$time,
+    surv   = ss$surv,
+    lower  = ss$lower,
+    upper  = ss$upper
+  ) |>
+  pivot_wider(names_from = time, values_from = c(surv, lower, upper),
+              names_glue = "{.value}_{time}m")
+}
+
+km_especie <- extract_km_points(fit_especie) |>
+  rename(epifita = strata) |>
+  mutate(epifita = sub("^epifita_canon=", "", epifita))
+write_csv(km_especie, "output/KM_epifitas_S12_24_60_84.csv")
+
+labs_parque <- levels(df_surv$parque_norm)
+# KM por parque
+fit_parque <- survfit(Surv(time_months, status_natural) ~ parque_norm, data = df_surv)
+p_parque <- ggsurvplot(
+  fit_parque, data = df_surv, 
+  risk.table = FALSE,
+  legend.title = "Parque",
+  legend.labs = labs_parque,
+  legend = "right",    
+  xlab = "Meses desde establecimiento", 
+  ylab = "Prob. de supervivencia"
+)
+
+ggsave("plots/KM_parques.png", p_parque$plot, width=7, height=5, dpi=300)
+
+# p-valor log-rank por parque
+lr_parque <- survdiff(Surv(time_months, status_natural) ~ parque_norm, data = df_surv)
+p_parque <- 1 - pchisq(lr_parque$chisq, length(lr_parque$n) - 1)
+write_csv(tibble(statistic = lr_parque$chisq, df = length(lr_parque$n)-1, p_value = p_parque),
+          "output/logrank_parque.csv")
+
+km_parque <- extract_km_points(fit_parque) |>
+  rename(parque = strata) |>
+  mutate(parque = sub("^parque_norm=", "", parque))
+write_csv(km_parque, "output/KM_parques_S12_24_60_84.csv")
+```
+
+## 6.2) Cox con agrupamiento por árbol (errores robustos)
+
+```{r}
+# Preparar datos del modelo
+model_data <- df_surv %>%
+  mutate(
+    across(all_of(c(col_epifita, col_parque, col_ubic, col_corteza)), ~ fct_drop(as.factor(.))),
+    across(all_of(col_altura), ~ suppressWarnings(as.numeric(.)))
+  ) %>%
+  select(time_months, status_natural,
+         all_of(c(col_epifita, col_parque, col_altura, col_ubic, col_corteza, col_id_arbol))) %>%
+  drop_na()
+
+rhs_terms <- c(
+  col_epifita,
+  col_parque,
+  sprintf("scale(%s)", col_altura),
+  col_ubic,
+  col_corteza,
+  sprintf("cluster(%s)", col_id_arbol)
+)
+cox_formula <- as.formula(paste("Surv(time_months, status_natural) ~", paste(rhs_terms, collapse = " + ")))
+
+modelo_cox <- coxph(cox_formula, data = model_data, ties = "efron")
+sink("output/cox_summary.txt"); print(summary(modelo_cox)); sink()
+
+# Proporcionalidad
+cz <- cox.zph(modelo_cox)
+sink("output/cox_ph_test.txt"); print(cz); sink()
 ```
 
 ```{r}
-mort <- read.csv("databases/mort.csv")
-colnames(mort) <- c("id", "Familia", "Especie","01/03/16", "12/04/16",
-                    "12/05/16",	"16/06/16",	"18/09/16",
-                    "1/05/17",	"1/06/17",	"1/12/17",	
-                    "5/02/18", "12/07/18",	"12/12/18",	"1/07/23")
-
-mort1 <- mort %>%
-  select(-id, -Familia) %>%
-  pivot_longer(cols = -Especie, 
-               names_to = "Monitoreo", 
-               values_to = "Supervivencia") %>%
-  mutate(Fecha = dmy(Monitoreo)) %>%
-  select(Especie, Fecha, Supervivencia) %>%
-  ungroup(.) %>%
-  as.data.frame(.)
-
-plot = ggplot(mort1, 
-       aes(x = Fecha, y = Supervivencia, group = Especie, color = Especie)) +
-  geom_line() +
-  labs(x = "Fecha", y = "Supervivencia", color = "Especie") +
-  theme_light() +
-  guides(color = guide_legend(label.theme = element_text(face = "italic")))
-
-ggsave("Supervivencia2023.png", plot, width = 5, height = 3, units = "in", dpi = 300)
+# Resumen rápido para validar antes de fenología:
+list(
+  tabla1_parque = head(tabla1_parque),
+  causas_total  = tabla_causas_total,
+  km_epifitas   = head(km_especie),
+  km_parques    = head(km_parque)
+)
 ```
 
-# Fenología
+## 6.3 especie del árbol
 
-## Floracion 
+```{r}
+df_surv <- df_surv %>%
+  dplyr::select(-dplyr::any_of("especie_arbol_norm")) %>%
+  dplyr::left_join(df %>% dplyr::select(ind_id, especie_arbol_norm), by = "ind_id")
+
+# 2) Cox con fragilidad por árbol y por especie de forófito
+library(coxme)
+coxme_formula <- as.formula(
+  "Surv(time_months, status_natural) ~ epifita_canon + parque_norm +
+   scale(altura_planta) + ubicacion_en_el_arbol + corteza +
+   (1 | arbol_id) + (1 | especie_arbol_norm)"
+)
+modelo_cox_forofito_RE <- coxme(coxme_formula, data = df_surv)
+summary(modelo_cox_forofito_RE)
+```
+
+Opcion 2
+
+```{r}
+# 1) Elige un umbral (p.ej., ≥5 árboles muestreados) para “comunes”
+forofito_comunes <- df %>%
+  dplyr::count(especie_arbol_norm, name = "n_arboles_distintos") %>%
+  dplyr::filter(n_arboles_distintos >= 5) %>%
+  dplyr::pull(especie_arbol_norm)
+
+df_surv <- df_surv %>%
+  dplyr::mutate(forofito_grp = ifelse(especie_arbol_norm %in% forofito_comunes,
+                                      especie_arbol_norm, "Otros")) %>%
+  dplyr::mutate(forofito_grp = forcats::fct_infreq(forofito_grp))
+
+# 2) Cox con cluster(arbol_id) y forofito_grp como fijo
+library(survival)
+cox_formula_ff <- as.formula(
+  "Surv(time_months, status_natural) ~ epifita_canon + parque_norm +
+   scale(altura_planta) + ubicacion_en_el_arbol + corteza + forofito_grp +
+   cluster(arbol_id)"
+)
+modelo_cox_forofito_FE <- coxph(cox_formula_ff, data = df_surv, ties = 'efron')
+summary(modelo_cox_forofito_FE)
+cox.zph(modelo_cox_forofito_FE)
+```
+
+Código para diagnosticar
+
+```{r}
+# ------------------------------------------------------------
+# DIAGNÓSTICOS: forófito como fijo (separación, niveles raros)
+# ------------------------------------------------------------
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(survival)
+library(coxme)
+library(broom)
+library(broom.helpers)
+library(forcats)
+library(ggplot2)
+
+# Asegura columnas presentes
+stopifnot(all(c("time_months","status_natural","epifita_canon","parque_norm",
+                "altura_planta","ubicacion_en_el_arbol","corteza",
+                "arbol_id","especie_arbol_norm","forofito_grp") %in% names(df_surv)))
+
+# 1) Conteos por forófito: n, eventos, censuras
+tab_forofito <- df_surv %>%
+  count(forofito_grp, name = "n") %>%
+  left_join(df_surv %>% group_by(forofito_grp) %>% summarise(eventos = sum(status_natural, na.rm = TRUE),
+                                                             censuras = sum(1L - status_natural, na.rm = TRUE),
+                                                             .groups="drop"),
+            by = "forofito_grp") %>%
+  arrange(desc(n))
+tab_forofito
+write.csv(tab_forofito, "output/cox_forofito_conteos.csv", row.names = FALSE)
+
+# 2) Detecta separación/quasi-separación
+#    (a) grupos con 0 eventos o 0 censuras
+sep_flags <- tab_forofito %>%
+  mutate(flag_0eventos = eventos == 0,
+         flag_0censuras = censuras == 0)
+sep_flags
+write.csv(sep_flags, "output/cox_forofito_separacion_flags.csv", row.names = FALSE)
+
+# 3) Colapsar niveles raros/ problemáticos
+#    criterio: < 5 eventos O < 10 observaciones  -> "Otros"
+rare_levels <- tab_forofito %>%
+  filter(eventos < 5 | n < 10) %>%
+  pull(forofito_grp)
+
+df_surv2 <- df_surv %>%
+  mutate(forofito_grp_coll =
+           if_else(forofito_grp %in% rare_levels, "Otros", as.character(forofito_grp)) %>%
+           fct_infreq() %>% fct_drop())
+
+# 4) Verifica nuevamente conteos tras colapso
+tab_forofito2 <- df_surv2 %>%
+  count(forofito_grp_coll, name = "n") %>%
+  left_join(df_surv2 %>% group_by(forofito_grp_coll) %>% summarise(eventos = sum(status_natural, na.rm = TRUE),
+                                                                    censuras = sum(1L - status_natural, na.rm = TRUE),
+                                                                    .groups="drop"),
+            by = "forofito_grp_coll") %>%
+  arrange(desc(n))
+tab_forofito2
+write.csv(tab_forofito2, "output/cox_forofito_conteos_colapsado.csv", row.names = FALSE)
+
+# ------------------------------------------------------------
+# AJUSTES ALTERNATIVOS
+# ------------------------------------------------------------
+
+# (A) Cox con forófito como FIJO (colapsado) + cluster(arbol_id)
+form_FE <- as.formula(
+  "Surv(time_months, status_natural) ~ epifita_canon + parque_norm +
+   scale(altura_planta) + ubicacion_en_el_arbol + corteza + forofito_grp_coll +
+   cluster(arbol_id)"
+)
+m_FE <- coxph(form_FE, data = df_surv2, ties = "efron")
+summary(m_FE)
+saveRDS(m_FE, file = "output/cox_FE_forofito_colapsado.rds")
+
+# (B) Cox mixto (RE) con fragilidades: árbol + especie del forófito (no colapsado)
+form_RE <- as.formula(
+  "Surv(time_months, status_natural) ~ epifita_canon + parque_norm +
+   scale(altura_planta) + ubicacion_en_el_arbol + corteza +
+   (1|arbol_id) + (1|especie_arbol_norm)"
+)
+m_RE <- coxme(form_RE, data = df_surv)
+saveRDS(m_RE, file = "output/cox_RE_arbol_y_forofito.rds")
+
+# (C) Cox con ridge en el término de forófito (si persiste inestabilidad)
+#     Nota: 'ridge()' penaliza los coeficientes para estabilizar estimación
+form_ridge <- as.formula(
+  "Surv(time_months, status_natural) ~ epifita_canon + parque_norm +
+   scale(altura_planta) + ubicacion_en_el_arbol + corteza + ridge(forofito_grp)"
+)
+m_ridge <- coxph(form_ridge, data = df_surv, ties = "efron", cluster = arbol_id)
+summary(m_ridge)
+saveRDS(m_ridge, file = "output/cox_FE_forofito_ridge.rds")
+
+# ------------------------------------------------------------
+# CHEQUEOS, TABLAS Y FIGURAS (modelo FE colapsado por ejemplo)
+# ------------------------------------------------------------
+
+# 1) Supuesto de proporcionalidad
+zph_FE <- cox.zph(m_FE)
+zph_FE
+capture.output(zph_FE, file = "output/cox_FE_zph.txt")
+
+# 2) Tabla ordenada (OR, IC95, p robusto) para manuscrito
+tidy_FE <- broom::tidy(m_FE, exponentiate = TRUE, conf.int = TRUE) %>%
+  mutate(term = broom.helpers::tidy_identify_variables(m_FE)$label) %>%
+  select(term, estimate, conf.low, conf.high, p.value)
+write.csv(tidy_FE, "output/cox_FE_forofito_tabla.csv", row.names = FALSE)
+
+# 3) Forest plot (excluye 'cluster' y baseline)
+plot_FE <- broom::tidy(m_FE, conf.int = TRUE, exponentiate = TRUE) %>%
+  filter(!str_detect(term, "cluster\\(|^strata\\(")) %>%
+  mutate(term = str_replace(term, "epifita_canon", "Epífita: "),
+         term = str_replace(term, "parque_norm", "Parque: "),
+         term = str_replace(term, "ubicacion_en_el_arbol", "Ubicación: "),
+         term = str_replace(term, "corteza", "Corteza: "),
+         term = str_replace(term, "forofito_grp_coll", "Forófito: "),
+         term = str_replace(term, "scale\\(altura_planta\\)", "Altura (z)")) %>%
+  mutate(term = fct_rev(fct_inorder(term)))
+
+gg_forest <- ggplot(plot_FE, aes(y = term, x = estimate, xmin = conf.low, xmax = conf.high)) +
+  geom_vline(xintercept = 1, linetype = 2) +
+  geom_pointrange() +
+  scale_x_log10() +
+  labs(x = "Hazard ratio (log escala)", y = NULL) +
+  theme_minimal(base_size = 11)
+ggsave("plots/cox_FE_forest.png", gg_forest, width = 7, height = 8, dpi = 300)
+
+# 4) Comparación de ajustes (AIC) – solo ilustrativo entre FE colapsado y ridge
+aic_comp <- tibble(
+  modelo = c("FE_colapsado", "FE_ridge"),
+  AIC    = c(AIC(m_FE), AIC(m_ridge))
+)
+write.csv(aic_comp, "output/cox_AIC_comparacion.csv", row.names = FALSE)
+
+# ------------------------------------------------------------
+# OPCIONAL: excluir explícitamente niveles sin eventos para evitar NAs
+# ------------------------------------------------------------
+niveles_sin_evento <- tab_forofito %>% filter(eventos == 0) %>% pull(forofito_grp)
+df_surv_drop0 <- df_surv %>%
+  filter(!forofito_grp %in% niveles_sin_evento) %>%
+  mutate(forofito_grp = fct_drop(forofito_grp))
+
+m_FE_drop0 <- coxph(Surv(time_months, status_natural) ~ epifita_canon + parque_norm +
+                      scale(altura_planta) + ubicacion_en_el_arbol + corteza + forofito_grp +
+                      cluster(arbol_id),
+                    data = df_surv_drop0, ties = "efron")
+summary(m_FE_drop0)
+saveRDS(m_FE_drop0, file = "output/cox_FE_sinNiveles0eventos.rds")
+
+```
+
+# 7) Fenología
 
 ```{r}
 fen <- read.csv("databases/fenol.csv")
 
+# ---- FLORACIÓN (3a) ----
 flor <- fen %>%
   group_by(Especie.epífita) %>%
-  mutate(across(starts_with("Floracion"), ~ as.numeric(.))) %>%
-  summarize(across(starts_with("Floracion"), ~ sum(.)))
+  mutate(across(starts_with("Floracion"), ~ suppressWarnings(as.numeric(.)))) %>%
+  summarize(across(starts_with("Floracion"), ~ sum(.)), .groups = "drop")
 
-colnames(flor) <- c("Especie", "12/04/16", "12/05/16",	
-                    "16/06/16",	"18/09/16", "1/05/17",
-                    "1/06/17",	"1/12/17", "5/02/18",
-                    "12/07/18",	"12/12/18",	"1/07/23")
+colnames(flor) <- c("Especie",
+                    "12/04/16","12/05/16","16/06/16","18/09/16",
+                    "1/05/17","1/06/17","1/12/17","5/02/18",
+                    "12/07/18","12/12/18","1/07/23")
 
 flor1 <- flor %>%
-  pivot_longer(cols = -Especie, 
-               names_to = "Monitoreo", 
-               values_to = "Floracion") %>%
+  pivot_longer(-Especie, names_to = "Monitoreo", values_to = "Floracion") %>%
   mutate(Fecha = dmy(Monitoreo)) %>%
-  select(Especie, Fecha, Floracion) %>%
-  ungroup(.) %>%
-  as.data.frame(.)
+  filter(!is.na(Floracion), Floracion > 0)
 
-plot1 = ggplot(flor1, 
-       aes(x = Fecha, y = Floracion, group = Especie, color = Especie)) +
-  geom_point() +
-  labs(x = "Fecha", y = "Floracion", color = "Especie") +
-  theme_light() +
-  guides(color = guide_legend(label.theme = element_text(face = "italic")))
-```
+# Orden de especies (más eventos primero) para una leyenda útil
+orden_flor <- flor1 %>% group_by(Especie) %>% summarise(n = sum(Floracion)) %>%
+  arrange(desc(n)) %>% pull(Especie)
 
-## Fructificacion
-
-```{r}
+# ---- FRUCTIFICACIÓN (3b) ----
 fru <- fen %>%
   group_by(Especie.epífita) %>%
-  mutate(across(starts_with("fructificacion"), ~ as.numeric(.))) %>%
-  summarize(across(starts_with("fructificacion"), ~ sum(.)))
+  mutate(across(starts_with("fructificacion"), ~ suppressWarnings(as.numeric(.)))) %>%
+  summarize(across(starts_with("fructificacion"), ~ sum(.)), .groups = "drop")
 
-colnames(fru) <- c("Especie", "12/04/16", "12/05/16",	
-                    "16/06/16",	"18/09/16", "1/05/17",
-                    "1/06/17",	"1/12/17", "5/02/18",
-                    "12/07/18",	"12/12/18",	"1/07/23")
+colnames(fru) <- c("Especie",
+                   "12/04/16","12/05/16","16/06/16","18/09/16",
+                   "1/05/17","1/06/17","1/12/17","5/02/18",
+                   "12/07/18","12/12/18","1/07/23")
 
 fru1 <- fru %>%
-  pivot_longer(cols = -Especie, 
-               names_to = "Monitoreo", 
-               values_to = "Fructificacion") %>%
+  pivot_longer(-Especie, names_to = "Monitoreo", values_to = "Fructificacion") %>%
   mutate(Fecha = dmy(Monitoreo)) %>%
-  select(Especie, Fecha, Fructificacion) %>%
-  ungroup(.) %>%
-  as.data.frame(.)
+  filter(!is.na(Fructificacion), Fructificacion > 0)
+```
 
-plot2 = ggplot(fru1, 
-       aes(x = Fecha, y = Fructificacion, group = Especie, color = Especie)) +
-  geom_point() +
-  labs(x = "Fecha", y = "Fructificacion", color = "Especie") +
-  theme_light() +
-  guides(color = guide_legend(label.theme = element_text(face = "italic")))
+
+```{r}
+pt_size <- 2.6
+
+# 1) Orden maestro de especies (union de ambas, en el orden que prefieras)
+especies_flor <- flor1 |> dplyr::filter(!is.na(Floracion), Floracion > 0) |> dplyr::pull(Especie)
+especies_fru  <- fru1  |> dplyr::filter(!is.na(Fructificacion), Fructificacion > 0) |> dplyr::pull(Especie)
+orden_master  <- unique(c(especies_flor, especies_fru))  # unión, mantiene orden de aparición
+
+# 2) Paleta nombrada y consistente
+n_col <- length(orden_master)
+base_cols <- brewer.pal(max(3, min(8, n_col)), "Dark2")
+if (n_col > length(base_cols)) {
+  # extiende con una paleta HCL si hace falta
+  extra <- grDevices::hcl.colors(n_col - length(base_cols), "Dark 3")
+  cols <- c(base_cols, extra)
+} else {
+  cols <- base_cols[seq_len(n_col)]
+}
+pal <- stats::setNames(cols, orden_master)
+
+# 3) Fuerza el mismo factor (niveles) en ambos datasets
+flor_plot <- flor1 |>
+  dplyr::filter(!is.na(Floracion), Floracion > 0) |>
+  dplyr::mutate(Especie = factor(Especie, levels = orden_master))
+
+fru_plot <- fru1 |>
+  dplyr::filter(!is.na(Fructificacion), Fructificacion > 0) |>
+  dplyr::mutate(Especie = factor(Especie, levels = orden_master))
+
+# 4) Panel 3a — Floración (con leyenda)
+plot1 <- ggplot(flor_plot, aes(Fecha, Floracion, color = Especie)) +
+  geom_point(size = pt_size, position = position_jitter(width = 10, height = 0, seed = 1)) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y", expand = expansion(mult = c(.02,.02))) +
+  scale_color_manual(values = pal, breaks = orden_master, drop = FALSE) +
+  labs(x = "Fecha", y = "Floración", color = "Especie") +
+  theme_light(base_size = 11) +
+  theme(
+    panel.grid.minor = element_blank(),
+    legend.position  = "right",
+    legend.title     = element_text(),
+    legend.text      = element_text(face = "italic", size = 9),
+    legend.key.width = unit(10, "pt")
+  )
+
+# 5) Panel 3b — Fructificación (misma escala de color, SIN leyenda)
+plot2 <- ggplot(fru_plot, aes(Fecha, Fructificacion, color = Especie)) +
+  geom_point(size = pt_size, position = position_jitter(width = 10, height = 0, seed = 2)) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y", expand = expansion(mult = c(.02,.02))) +
+  scale_color_manual(values = pal, breaks = orden_master, drop = FALSE) +
+  labs(x = "Fecha", y = "Fructificación") +
+  theme_light(base_size = 11) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "none")
+
+# 6) Combinar (una sola leyenda: la de 3a)
+final <- plot1 + plot2 + plot_layout(ncol = 2)
+final
+ggsave("plots/Fenologia2023_final2.png", final, width = 14, height = 4.6, units = "in", dpi = 300, bg = "white")
 ```
 
 ```{r}
-plot = plot_grid(plot1, plot2, labels = "AUTO")
-plot
+pt_size <- 2.6
 
-ggsave("Fenologia2023.png", plot, width = 13, height = 3, units = "in", dpi = 300)
+# 1) Unión de especies y niveles iguales en ambos datasets (asegura colores consistentes SIN paleta manual)
+especies_flor <- flor1 |> dplyr::filter(!is.na(Floracion), Floracion > 0) |> dplyr::pull(Especie)
+especies_fru  <- fru1  |> dplyr::filter(!is.na(Fructificacion), Fructificacion > 0) |> dplyr::pull(Especie)
+orden_master  <- unique(c(especies_flor, especies_fru))
+
+flor_plot <- flor1 |>
+  dplyr::filter(!is.na(Floracion), Floracion > 0) |>
+  dplyr::mutate(Especie = factor(Especie, levels = orden_master))
+
+fru_plot <- fru1 |>
+  dplyr::filter(!is.na(Fructificacion), Fructificacion > 0) |>
+  dplyr::mutate(Especie = factor(Especie, levels = orden_master))
+
+# 2) Fig. 3a (con leyenda, usando la paleta por defecto de ggplot)
+plot1 <- ggplot(flor_plot, aes(Fecha, Floracion, color = Especie)) +
+  geom_point(size = pt_size, position = position_jitter(width = 10, height = 0, seed = 1)) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y", expand = expansion(mult = c(.02,.02))) +
+  labs(x = "Fecha", y = "Floración", color = "Especie") +
+  theme_light(base_size = 11) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        legend.text = element_text(face = "italic", size = 9))
+
+# 3) Fig. 3b (sin leyenda)
+plot2 <- ggplot(fru_plot, aes(Fecha, Fructificacion, color = Especie)) +
+  geom_point(size = pt_size, position = position_jitter(width = 10, height = 0, seed = 2)) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y", expand = expansion(mult = c(.02,.02))) +
+  labs(x = "Fecha", y = "Fructificación") +
+  theme_light(base_size = 11) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "none")
+
+# 4) Extrae una sola leyenda “limpia” de 3a y ubícala a la DERECHA del conjunto
+plot1_clean   <- plot1 + guides(fill = "none", shape = "none", linetype = "none", size = "none", alpha = "none") +
+  theme(legend.position = "right")
+legend_shared <- cowplot::get_legend(plot1_clean)
+
+# Paneles sin leyenda interna
+p1_noleg <- plot1 + theme(legend.position = "none")
+p2_noleg <- plot2
+
+# Combina: paneles a la izquierda, leyenda como columna derecha
+paneles <- cowplot::plot_grid(p1_noleg, p2_noleg, ncol = 2, align = "hv", labels = "AUTO")
+final   <- cowplot::plot_grid(paneles, legend_shared, ncol = 2, rel_widths = c(1, 0.23))
+
+final
+ggsave("plots/Fenologia.png", final, width = 14.5, height = 5, units = "in", dpi = 300, bg = "white")
 ```
+
+## 7.1) Fenología a primer evento
+
+```{r}
+# 1) Índice→fecha (ya lo tenías)
+fechas_lookup <- tibble::tribble(
+  ~monitoreo_idx, ~fecha,
+   1, as.Date("2016-04-12"), 2, as.Date("2016-05-12"),
+   3, as.Date("2016-06-16"), 4, as.Date("2016-09-18"),
+   5, as.Date("2017-05-01"), 6, as.Date("2017-06-01"),
+   7, as.Date("2017-12-01"), 8, as.Date("2018-02-05"),
+   9, as.Date("2018-07-12"),10, as.Date("2018-12-12"),
+  11, as.Date("2023-07-01")
+)
+fecha_instal <- as.Date("2016-03-01")
+
+# 2) Detectores y helper
+get_idx <- function(x) as.integer(str_extract(x, "\\d+"))
+cols_flor <- names(df)[str_detect(names(df), regex("^floraci[oó]n[_ ]?\\d", ignore_case = TRUE))]
+cols_fruc <- names(df)[str_detect(names(df), regex("^fructificaci[oó]n[_ ]?\\d", ignore_case = TRUE))]
+
+# 3) First-Event por individuo: FLORACIÓN
+flor_long <- df %>%
+  select(ind_id, epifita_canon, parque_norm, all_of(cols_flor)) %>%
+  mutate(across(all_of(cols_flor), as.character)) %>%
+  pivot_longer(all_of(cols_flor), names_to = "col", values_to = "val") %>%
+  mutate(monitoreo_idx = get_idx(col),
+         evento = if_else(str_detect(val %||% "", "^\\s*1\\s*$"), 1L, 0L)) %>%
+  filter(!is.na(monitoreo_idx)) %>%
+  left_join(fechas_lookup, by = "monitoreo_idx")
+
+first_flor <- flor_long %>%
+  group_by(ind_id, epifita_canon, parque_norm) %>%
+  summarise(first_idx = suppressWarnings(min(monitoreo_idx[evento==1], na.rm=TRUE)),
+            .groups="drop") %>%
+  mutate(first_idx = ifelse(is.infinite(first_idx), NA, first_idx)) %>%
+  left_join(fechas_lookup, by = c("first_idx"="monitoreo_idx")) %>%
+  rename(fecha_evento = fecha) %>%
+  mutate(time_months = as.numeric(coalesce(fecha_evento, as.Date("2023-07-01")) - fecha_instal)/30.4375,
+         status = if_else(is.na(fecha_evento), 0, 1))
+
+# KM + log-rank por especie (floración)
+fit_flor <- survfit(Surv(time_months, status) ~ epifita_canon, data = first_flor)
+ggsurvplot(fit_flor, data = first_flor, risk.table = FALSE,
+           xlab = "Meses desde instalación", ylab = "Prob. sin floración (1º evento)",
+           legend.title = "Epífita") -> p_flor_KM
+ggsave("plots/KM_floracion_primer_evento.png", p_flor_KM$plot, width=8, height=5, dpi=300)
+
+survdiff(Surv(time_months, status) ~ epifita_canon, data = first_flor) -> lr_first_flor
+capture.output(lr_first_flor, file="output/logrank_primer_flor.txt")
+
+# Tabla S(t) a 12/24/60/84 m
+extract_km_points <- function(fit, times=c(12,24,60,84)){
+  ss <- summary(fit, times=times)
+  tibble(strata=ss$strata,time=ss$time,surv=ss$surv,lower=ss$lower,upper=ss$upper) |>
+    pivot_wider(names_from=time, values_from=c(surv,lower,upper), names_glue="{.value}_{time}m")
+}
+km_first_flor <- extract_km_points(fit_flor) |>
+  rename(epifita = strata) |>
+  mutate(epifita = sub("^epifita_canon=", "", epifita))
+write.csv(km_first_flor, "output/KM_primer_flor_S12_24_60_84.csv", row.names=FALSE)
+
+# 4) Repite exactamente igual para FRUCTIFICACIÓN
+fruc_long <- df %>%
+  select(ind_id, epifita_canon, parque_norm, all_of(cols_fruc)) %>%
+  mutate(across(all_of(cols_fruc), as.character)) %>%
+  pivot_longer(all_of(cols_fruc), names_to="col", values_to="val") %>%
+  mutate(monitoreo_idx = get_idx(col),
+         evento = if_else(str_detect(val %||% "", "^\\s*1\\s*$"), 1L, 0L)) %>%
+  filter(!is.na(monitoreo_idx)) %>%
+  left_join(fechas_lookup, by="monitoreo_idx")
+
+first_fruc <- fruc_long %>%
+  group_by(ind_id, epifita_canon, parque_norm) %>%
+  summarise(first_idx = suppressWarnings(min(monitoreo_idx[evento==1], na.rm=TRUE)),
+            .groups="drop") %>%
+  mutate(first_idx = ifelse(is.infinite(first_idx), NA, first_idx)) %>%
+  left_join(fechas_lookup, by=c("first_idx"="monitoreo_idx")) %>%
+  rename(fecha_evento = fecha) %>%
+  mutate(time_months = as.numeric(coalesce(fecha_evento, as.Date("2023-07-01")) - fecha_instal)/30.4375,
+         status = if_else(is.na(fecha_evento), 0, 1))
+
+fit_fruc <- survfit(Surv(time_months, status) ~ epifita_canon, data = first_fruc)
+ggsurvplot(fit_fruc, data=first_fruc, risk.table=FALSE,
+           xlab="Meses desde instalación", ylab="Prob. sin fructificación (1º evento)",
+           legend.title="Epífita") -> p_fruc_KM
+ggsave("plots/KM_fructificacion_primer_evento.png", p_fruc_KM$plot, width=8, height=5, dpi=300)
+
+survdiff(Surv(time_months, status) ~ epifita_canon, data = first_fruc) |>
+  capture.output(file="output/logrank_primer_fruc.txt")
+write.csv(extract_km_points(fit_fruc) |>
+            rename(epifita=strata) |>
+            mutate(epifita=sub("^epifita_canon=", "", epifita)),
+          "output/KM_primer_fruc_S12_24_60_84.csv", row.names=FALSE)
+```
+
+
+# 8) Crecimiento
+
+```{r}
+# ============================
+# CRECIMIENTO: hojas / clones / raíces
+# ============================
+library(dplyr); library(tidyr); library(stringr); library(ggplot2); library(readr); library(forcats)
+
+# --- 0) Helpers: detectar columnas de "nuevas_hojas_*" y "nuevas_raices_*"
+cols_hojas  <- names(df)[str_detect(names(df), regex("^nuevas_hojas",  ignore_case = TRUE))]
+cols_raices <- names(df)[str_detect(names(df), regex("^nuevas_raices", ignore_case = TRUE))]
+
+# Normaliza “112_12_2018” si no lo hiciste ya
+names(df) <- names(df) |>
+  stringr::str_replace("^nuevas_hojas_112_12_2018$", "nuevas_hojas_12_12_2018")
+
+# --- 1) Eventos de crecimiento (0/1 por visita) y tasas por visita
+to_long_events <- function(dat, cols, varname){
+  dat %>%
+    select(ind_id, epifita_canon, parque_norm, all_of(cols)) %>%
+    mutate(across(all_of(cols), as.character)) %>%
+    pivot_longer(all_of(cols), names_to = "col", values_to = "val") %>%
+    mutate(
+      observado   = if_else(is.na(val) | str_trim(val) == "", 0L, 1L),
+      evento_bin  = if_else(str_detect(val %||% "", "^\\s*1\\s*$"), 1L, 0L),
+      variable    = varname
+    )
+}
+
+long_hojas  <- to_long_events(df, cols_hojas,  "hojas")
+long_raices <- to_long_events(df, cols_raices, "raices")
+
+# Une y calcula por individuo:
+eventos_ind <- bind_rows(long_hojas, long_raices) %>%
+  group_by(ind_id, epifita_canon, parque_norm, variable) %>%
+  summarise(
+    n_visitas_reg = sum(observado, na.rm = TRUE),
+    n_eventos     = sum(evento_bin, na.rm = TRUE),
+    tasa_evento_x_visita = if_else(n_visitas_reg > 0, n_eventos / n_visitas_reg, NA_real_),
+    .groups = "drop"
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = variable,
+    values_from = c(n_visitas_reg, n_eventos, tasa_evento_x_visita),
+    names_sep = "_"
+  )
+
+# Guarda tabla por individuo
+write_csv(eventos_ind, "output/crecimiento_eventos_por_individuo.csv")
+
+# Resumen por especie y por parque
+resumen_eventos_especie <- eventos_ind %>%
+  group_by(epifita_canon) %>%
+  summarise(across(c(n_eventos_hojas, n_eventos_raices, tasa_evento_x_visita_hojas, tasa_evento_x_visita_raices),
+                   list(mediana = ~median(., na.rm=TRUE), iqr = ~IQR(., na.rm=TRUE))),
+            .groups = "drop")
+write_csv(resumen_eventos_especie, "output/crecimiento_resumen_eventos_por_especie.csv")
+
+resumen_eventos_parque <- eventos_ind %>%
+  group_by(parque_norm) %>%
+  summarise(across(c(n_eventos_hojas, n_eventos_raices, tasa_evento_x_visita_hojas, tasa_evento_x_visita_raices),
+                   list(mediana = ~median(., na.rm=TRUE), iqr = ~IQR(., na.rm=TRUE))),
+            .groups = "drop")
+write_csv(resumen_eventos_parque, "output/crecimiento_resumen_eventos_por_parque.csv")
+
+# --- 2) Conteo 2023: hojas/tallos/clones (final)
+col_hojas2023 <- "numero_de_hojas_tallos_clones_2023"
+stopifnot(col_hojas2023 %in% names(df))
+
+hojas2023 <- df %>%
+  transmute(ind_id, epifita_canon, parque_norm, altura_planta, ubicacion_en_el_arbol, corteza,
+            hojas_2023 = suppressWarnings(as.numeric(.data[[col_hojas2023]]))) %>%
+  left_join(df_causas %>% select(ind_id, causa_final, vivo_2023), by = "ind_id")
+
+# Restringe a vivos 2023 para evitar sesgos fuertes (puedes comentar si quieres todo)
+hojas2023_vivos <- hojas2023 %>% filter(vivo_2023 == TRUE | causa_final == "vivo_2023")
+
+# Resúmenes por especie/parque
+tab_hojas_especie <- hojas2023_vivos %>%
+  group_by(epifita_canon) %>%
+  summarise(n = n(),
+            mediana = median(hojas_2023, na.rm=TRUE),
+            iqr     = IQR(hojas_2023, na.rm=TRUE),
+            max     = max(hojas_2023, na.rm=TRUE),
+            .groups = "drop")
+write_csv(tab_hojas_especie, "output/hojas2023_resumen_por_especie.csv")
+
+tab_hojas_parque <- hojas2023_vivos %>%
+  group_by(parque_norm) %>%
+  summarise(n = n(),
+            mediana = median(hojas_2023, na.rm=TRUE),
+            iqr     = IQR(hojas_2023, na.rm=TRUE),
+            max     = max(hojas_2023, na.rm=TRUE),
+            .groups = "drop")
+write_csv(tab_hojas_parque, "output/hojas2023_resumen_por_parque.csv")
+
+# Gráficas: boxplot por especie (ordenado por mediana) y por parque
+ord_espec <- tab_hojas_especie %>% arrange(desc(mediana)) %>% pull(epifita_canon)
+p_box_espec <- hojas2023_vivos %>%
+  mutate(epifita_canon = factor(epifita_canon, levels = ord_espec)) %>%
+  ggplot(aes(epifita_canon, hojas_2023)) +
+  geom_boxplot(outlier.alpha = 0.4) +
+  coord_flip() +
+  labs(x = "Epífita", y = "Hojas/tallos/clones (2023)") +
+  theme_light(base_size = 11)
+ggsave("plots/hojas2023_box_especie.png", p_box_espec, width = 6, height = 4.5, dpi = 300)
+
+p_box_parque <- ggplot(hojas2023_vivos, aes(parque_norm, hojas_2023)) +
+  geom_boxplot(outlier.alpha = 0.4) +
+  labs(x = "Parque", y = "Hojas/tallos/clones (2023)") +
+  theme_light(base_size = 11)
+ggsave("plots/hojas2023_box_parque.png", p_box_parque, width = 6, height = 4, dpi = 300)
+
+# Contrastes no paramétricos (descriptivos): Kruskal–Wallis
+kw_espec  <- kruskal.test(hojas_2023 ~ epifita_canon, data = hojas2023_vivos)
+kw_parque <- kruskal.test(hojas_2023 ~ parque_norm,  data = hojas2023_vivos)
+capture.output(kw_espec,  file = "output/hojas2023_kw_especie.txt")
+capture.output(kw_parque, file = "output/hojas2023_kw_parque.txt")
+
+# --- 3) Relación estructura–crecimiento
+# Spearman: altura vs hojas_2023
+spear_alt <- cor.test(hojas2023_vivos$altura_planta, hojas2023_vivos$hojas_2023, method = "spearman", use = "complete.obs")
+capture.output(spear_alt, file = "output/hojas2023_spearman_altura.txt")
+
+# Scatter altura vs hojas_2023 (loess)
+p_scatter_alt <- hojas2023_vivos %>%
+  ggplot(aes(x = altura_planta, y = hojas_2023)) +
+  geom_point(alpha = 0.6, position = position_jitter(width = 0.05, height = 0.05, seed = 3)) +
+  geom_smooth(method = "loess", se = TRUE) +
+  labs(x = "Altura de instalación (m)", y = "Hojas/tallos/clones (2023)") +
+  theme_light(base_size = 11)
+ggsave("plots/hojas2023_scatter_altura.png", p_scatter_alt, width = 6, height = 4, dpi = 300)
+
+# Boxplots por corteza y ubicación
+p_box_corteza <- ggplot(hojas2023_vivos, aes(corteza, hojas_2023)) +
+  geom_boxplot(outlier.alpha = 0.4) +
+  labs(x = "Corteza", y = "Hojas/tallos/clones (2023)") +
+  theme_light(base_size = 11)
+ggsave("plots/hojas2023_box_corteza.png", p_box_corteza, width = 5, height = 4, dpi = 300)
+
+p_box_ubic <- ggplot(hojas2023_vivos, aes(ubicacion_en_el_arbol, hojas_2023)) +
+  geom_boxplot(outlier.alpha = 0.4) +
+  labs(x = "Ubicación en el árbol", y = "Hojas/tallos/clones (2023)") +
+  theme_light(base_size = 11)
+ggsave("plots/hojas2023_box_ubicacion.png", p_box_ubic, width = 5.5, height = 4, dpi = 300)
+
+# --- 4) "Respondedores": alguna vez mostró crecimiento (≥1 evento)
+respondedores <- eventos_ind %>%
+  transmute(ind_id, epifita_canon, parque_norm,
+            respondio_hojas  = n_eventos_hojas  > 0,
+            respondio_raices = n_eventos_raices > 0)
+
+resp_espec <- respondedores %>%
+  group_by(epifita_canon) %>%
+  summarise(
+    n = n(),
+    pct_resp_hojas  = 100 * mean(respondio_hojas,  na.rm=TRUE),
+    pct_resp_raices = 100 * mean(respondio_raices, na.rm=TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(pct_resp_hojas))
+write_csv(resp_espec, "output/crecimiento_respondedores_por_especie.csv")
+
+resp_parque <- respondedores %>%
+  group_by(parque_norm) %>%
+  summarise(
+    n = n(),
+    pct_resp_hojas  = 100 * mean(respondio_hojas,  na.rm=TRUE),
+    pct_resp_raices = 100 * mean(respondio_raices, na.rm=TRUE),
+    .groups = "drop"
+  )
+write_csv(resp_parque, "output/crecimiento_respondedores_por_parque.csv")
+
+# Gráfico barras de “respondedores” por especie
+p_resp <- resp_espec %>%
+  mutate(epifita_canon = fct_reorder(epifita_canon, pct_resp_hojas)) %>%
+  ggplot(aes(x = epifita_canon, y = pct_resp_hojas)) +
+  geom_col() +
+  coord_flip() +
+  labs(x = "Epífita", y = "% individuos con ≥1 evento de hojas") +
+  theme_light(base_size = 11)
+ggsave("plots/crecimiento_respondedores_especie.png", p_resp, width = 6, height = 5, dpi = 300)
+```
+
+# 9) Text
+
+```{r}
+# ---- Redacción de Resultados leyendo SOLO outputs previos ----
+suppressPackageStartupMessages({
+  library(tidyverse)
+  library(glue)
+  library(stringr)
+  library(readr)
+})
+
+dir.create("output", showWarnings = FALSE, recursive = TRUE)
+
+# ---------- Helpers (vectorizados) ----------
+fmt_num <- function(x, d = 1) {
+  ifelse(is.na(x), NA_character_, sprintf(paste0("%.", d, "f"), x))
+}
+fmt_pct <- function(x, d = 1) {
+  ifelse(is.na(x), NA_character_, sprintf(paste0("%.", d, "f%%"), 100 * x))
+}
+extract_first_match <- function(x, pattern, default = NA_character_) {
+  s <- paste(x, collapse = " ")
+  m <- stringr::str_match(s, pattern)
+  if (is.na(m[1,1]) || ncol(m) < 2) default else m[1,2]
+}
+fmt_p <- function(p_txt) {
+  if (is.na(p_txt)) return(NA_character_)
+  pnum <- suppressWarnings(as.numeric(p_txt))
+  if (is.na(pnum)) return(p_txt)
+  if (pnum < 0.001) "< 0.001" else fmt_num(pnum, 3)
+}
+
+# ---------- 1) Releer outputs existentes ----------
+tabla1_parque        <- read_csv("output/tabla1_parque.csv", show_col_types = FALSE)
+catalogo_epifitas    <- read_csv("output/catalogo_epifitas.csv", show_col_types = FALSE)
+catalogo_forofitos   <- suppressMessages(read_csv("output/catalogo_forofitos.csv", show_col_types = FALSE))
+
+tabla_causas_total   <- read_csv("output/tabla_causas_total.csv", show_col_types = FALSE)
+
+km_parque            <- suppressWarnings(read_csv("output/KM_parques_S12_24_60_84.csv", show_col_types = FALSE))
+km_especie           <- suppressWarnings(read_csv("output/KM_epifitas_S12_24_60_84.csv", show_col_types = FALSE))
+
+logrank_parque       <- read_csv("output/logrank_parque.csv", show_col_types = FALSE)
+logrank_epifita_txt  <- read_lines("output/logrank_epifita.txt")
+
+cox_sum_lines        <- read_lines("output/cox_summary.txt")
+cox_ph_lines         <- read_lines("output/cox_ph_test.txt")
+
+logrank_primer_flor  <- if (file.exists("output/logrank_primer_flor.txt")) read_lines("output/logrank_primer_flor.txt") else character()
+logrank_primer_fruc  <- if (file.exists("output/logrank_primer_fruc.txt")) read_lines("output/logrank_primer_fruc.txt") else character()
+
+tab_hojas_especie    <- if (file.exists("output/hojas2023_resumen_por_especie.csv")) read_csv("output/hojas2023_resumen_por_especie.csv", show_col_types = FALSE) else NULL
+kw_espec_txt         <- if (file.exists("output/hojas2023_kw_especie.txt")) read_lines("output/hojas2023_kw_especie.txt") else character()
+kw_parque_txt        <- if (file.exists("output/hojas2023_kw_parque.txt")) read_lines("output/hojas2023_kw_parque.txt") else character()
+spear_alt_txt        <- if (file.exists("output/hojas2023_spearman_altura.txt")) read_lines("output/hojas2023_spearman_altura.txt") else character()
+
+# ---------- 2) Totales y top especies ----------
+n_ind     <- sum(tabla1_parque$n_epifitas, na.rm = TRUE)
+n_arboles <- sum(tabla1_parque$n_arboles,  na.rm = TRUE)
+n_parques <- dplyr::n_distinct(tabla1_parque$parque_norm)
+
+tot_ind   <- sum(catalogo_epifitas$n_individuos, na.rm = TRUE)
+top_espp  <- catalogo_epifitas %>%
+  arrange(desc(n_individuos)) %>%
+  mutate(prop = n_individuos / tot_ind) %>%
+  slice_head(n = 5)
+
+top_line <- top_espp %>%
+  mutate(lbl = glue("{epifita_canon} ({fmt_pct(prop,1)}, {n_individuos})")) %>%
+  pull(lbl) %>% paste(collapse = ", ")
+
+parques_line <- tabla1_parque %>%
+  mutate(lbl = glue("{parque_norm} ({n_arboles} árboles, {n_epifitas} epífitas)")) %>%
+  pull(lbl) %>% paste(collapse = "; ")
+
+# ---------- 3) Causas / estados finales ----------
+get_causa_pct <- function(key) {
+  x <- tabla_causas_total %>% filter(causa_final == key) %>% pull(pct)
+  ifelse(length(x) == 0, NA, x / 100)  # convertir a proporción
+}
+pct_vivos2023  <- get_causa_pct("vivo_2023")
+pct_antropico  <- get_causa_pct("antropico")
+pct_muerte_nat <- get_causa_pct("muerte_natural")
+pct_desap      <- get_causa_pct("desaparecido")
+
+causas_line <- c(
+  if (!is.na(pct_vivos2023))  glue("{fmt_pct(pct_vivos2023,1)} vivos en 2023"),
+  if (!is.na(pct_muerte_nat)) glue("{fmt_pct(pct_muerte_nat,1)} muerte natural"),
+  if (!is.na(pct_antropico))  glue("{fmt_pct(pct_antropico,1)} destino antrópico"),
+  if (!is.na(pct_desap))      glue("{fmt_pct(pct_desap,1)} desaparición")
+) %>% discard(is.na) %>% paste(collapse = ", ")
+
+# ---------- 4) Log-rank KM ----------
+lr_chi_parque <- ifelse(nrow(logrank_parque)>0, fmt_num(logrank_parque$statistic[1], 2), NA)
+lr_df_parque  <- ifelse(nrow(logrank_parque)>0, logrank_parque$df[1], NA)
+lr_p_parque   <- if (nrow(logrank_parque)>0) {
+  p <- logrank_parque$p_value[1]
+  if (is.na(p)) NA_character_ else if (p < 0.001) "< 0.001" else fmt_num(p, 3)
+} else NA_character_
+
+lr_chi_espec <- extract_first_match(logrank_epifita_txt, "chisq\\s*=\\s*([0-9\\.]+)")
+lr_df_espec  <- extract_first_match(logrank_epifita_txt, "on\\s+([0-9]+)\\s+df")
+lr_p_espec   <- fmt_p(extract_first_match(logrank_epifita_txt, "p=\\s*([0-9\\.eE-]+)"))
+
+km84_parques <- NULL
+if (!is.null(km_parque) && "surv_84m" %in% names(km_parque)) {
+  km84_parques <- km_parque %>%
+    mutate(parque = sub("^parque_norm=", "", parque)) %>%
+    transmute(lbl = glue("{parque}: {fmt_num(surv_84m,2)}")) %>%
+    pull(lbl) %>% paste(collapse = ", ")
+}
+
+# ---------- 5) Cox: efectos y PH ----------
+# Extraer filas de coeficientes del summary(coxph)
+start <- which(str_detect(cox_sum_lines, regex("^\\s*coef\\s+exp\\(coef\\)", ignore_case = TRUE)))
+end   <- which(str_detect(cox_sum_lines, "^---"))
+cox_table_section <- if (length(start) && length(end)) {
+  cox_sum_lines[seq(start[1] + 1, max(end[end > start[1]], na.rm = TRUE) - 1)]
+} else character()
+
+parse_cox_row <- function(line){
+  term <- str_trim(str_split_fixed(line, "\\s+", n = 2)[,1])
+  pval <- extract_first_match(line, "p[= ]\\s*([0-9\\.eE-]+)")
+  coef <- extract_first_match(line, "^(\\s*-?[0-9\\.]+)")
+  tibble(term = term,
+         coef = suppressWarnings(as.numeric(coef)),
+         p    = suppressWarnings(as.numeric(pval)))
+}
+
+cox_terms <- purrr::map_dfr(cox_table_section, parse_cox_row) %>%
+  # Asegura tipos
+  mutate(
+    p_num = suppressWarnings(as.numeric(p)),
+    coef  = suppressWarnings(as.numeric(coef))
+  ) %>%
+  filter(!is.na(coef)) %>%
+  # Texto de p seguro en tipos (todo Character)
+  mutate(
+    p_txt = case_when(
+      is.na(p_num)          ~ NA_character_,
+      p_num < 0.001         ~ "< 0.001",
+      TRUE                  ~ sprintf("%.3f", p_num)
+    ),
+    direccion = case_when(
+      coef >  0 ~ "aumentó el riesgo",
+      coef <  0 ~ "redujo el riesgo",
+      TRUE      ~ "sin efecto"
+    )
+  ) %>%
+  # si quieres ya no necesitas p y p_num, pero puedes dejarlas
+  select(term, coef, p = p_num, p_txt, direccion)
+
+
+ph_global_p <- extract_first_match(cox_ph_lines, "GLOBAL\\s+\\d+\\.\\d+\\s+\\d+\\.\\d+\\s+([0-9\\.eE-]+)")
+ph_global_p <- if (is.na(ph_global_p)) NA_character_ else fmt_p(ph_global_p)
+
+altura_row <- cox_terms %>% filter(str_detect(term, "altura_planta"))
+altura_dir <- if (nrow(altura_row)) altura_row$direccion[1] else NA_character_
+altura_p   <- if (nrow(altura_row)) altura_row$p_txt[1] else NA_character_
+
+cox_sig <- cox_terms %>%
+  filter(!is.na(p), p < 0.05) %>%
+  mutate(lbl = glue("{term}: {direccion} (p = {p_txt})")) %>%
+  pull(lbl) %>% paste(collapse = "; ")
+if (identical(cox_sig, "")) cox_sig <- NA_character_
+
+# ---------- 6) Fenología ----------
+flor_chi <- extract_first_match(logrank_primer_flor, "chisq\\s*=\\s*([0-9\\.]+)")
+flor_df  <- extract_first_match(logrank_primer_flor, "on\\s+([0-9]+)\\s+df")
+flor_p   <- fmt_p(extract_first_match(logrank_primer_flor, "p=\\s*([0-9\\.eE-]+)"))
+
+fruc_chi <- extract_first_match(logrank_primer_fruc, "chisq\\s*=\\s*([0-9\\.]+)")
+fruc_df  <- extract_first_match(logrank_primer_fruc, "on\\s+([0-9]+)\\s+df")
+fruc_p   <- fmt_p(extract_first_match(logrank_primer_fruc, "p=\\s*([0-9\\.eE-]+)"))
+
+# ---------- 7) Crecimiento ----------
+alt_assoc_rho <- extract_first_match(spear_alt_txt, "rho\\s*=\\s*([-0-9\\.]+)")
+alt_assoc_p   <- fmt_p(extract_first_match(spear_alt_txt, "p-value\\s*=\\s*([0-9\\.eE-]+)"))
+
+kw_espec_p    <- fmt_p(extract_first_match(kw_espec_txt,  "p-value\\s*=\\s*([0-9\\.eE-]+)"))
+kw_parque_p   <- fmt_p(extract_first_match(kw_parque_txt, "p-value\\s*=\\s*([0-9\\.eE-]+)"))
+
+top_size_line <- if (!is.null(tab_hojas_especie)) {
+  tab_hojas_especie %>%
+    arrange(desc(mediana)) %>%
+    slice_head(n = 3) %>%
+    mutate(lbl = glue("{epifita_canon} (mediana={mediana}, IQR={iqr}, max={max})")) %>%
+    pull(lbl) %>% paste(collapse = ", ")
+} else NA_character_
+
+# ---------- 8) Ensamble de texto ----------
+texto <- glue(
+  "Se establecieron {n_ind} individuos de epífitas sobre {n_arboles} árboles distribuidos en {n_parques} parques (**tabla1_parque.csv**). ",
+  "Las especies con mayor abundancia relativa fueron {top_line} (**catalogo_epifitas.csv**). ",
+  "Por parque, el esfuerzo y número de individuos se distribuyó como sigue: {parques_line} (**tabla1_parque.csv**). ",
+  if (!is.na(causas_line)) glue("Tras la curaduría de eventos, los destinos finales indicaron {causas_line} (**tabla_causas_total.csv**). ") else "",
+
+  "Las curvas de supervivencia mostraron diferencias entre especies y entre parques. ",
+  if (!is.na(lr_chi_espec)) glue("Entre especies, el contraste global indicó diferencias (log-rank: χ² = {lr_chi_espec}{if (!is.na(flor_df)) '' else ''}, p = {lr_p_espec}). ") else "",
+  if (!is.null(km84_parques)) glue("Entre parques, las probabilidades de supervivencia a 84 meses fueron {km84_parques} (**KM_parques_S12_24_60_84.csv**), con diferencias globales (log-rank: χ² = {lr_chi_parque}, gl = {lr_df_parque}, p = {lr_p_parque}). ") else
+    glue("Entre parques se detectaron diferencias globales (log-rank: χ² = {lr_chi_parque}, gl = {lr_df_parque}, p = {lr_p_parque}). "),
+
+  "El modelo de riesgos proporcionales de Cox mostró efectos del microhábitat y la identidad de la epífita sobre el riesgo de mortalidad natural. ",
+  if (!is.na(altura_dir)) glue("La altura de establecimiento {altura_dir} (Cox: p = {altura_p}). ") else "",
+  if (!is.na(cox_sig)) glue("En conjunto, las covariables con efecto significativo fueron: {cox_sig} (**cox_summary.txt**). ") else "",
+  if (!is.na(ph_global_p)) glue("Los supuestos de proporcionalidad se cumplieron a nivel global (test PH: p = {ph_global_p}; **cox_ph_test.txt**). ") else "",
+
+  "En la fenología de primer evento, la floración se concentró en los primeros años y varió poco entre especies ",
+  if (!is.na(flor_chi) && !is.na(flor_p)) glue("(log-rank: χ² = {flor_chi}{if (!is.na(flor_df)) glue(', gl = {flor_df}') else ''}, p = {flor_p}). ") else "",
+  "La fructificación fue menos frecuente y no mostró contrastes consistentes ",
+  if (!is.na(fruc_chi) && !is.na(fruc_p)) glue("(log-rank: χ² = {fruc_chi}{if (!is.na(fruc_df)) glue(', gl = {fruc_df}') else ''}, p = {fruc_p}). ") else "",
+  "Véanse los paneles fenológicos en **plots/Fenologia.png**. ",
+
+  "El crecimiento vegetativo fue moderado y heterogéneo entre especies. ",
+  if (!is.na(top_size_line)) glue("Hacia 2023, las especies con mayor tamaño relativo fueron {top_size_line} (**hojas2023_resumen_por_especie.csv**). ") else "",
+  if (!is.na(kw_espec_p)) glue("Las diferencias entre especies en el conteo final fueron {ifelse(as.numeric(gsub('< ','0.0009', kw_espec_p))<0.05,'detectables','no concluyentes')} (Kruskal–Wallis: p = {kw_espec_p}; **hojas2023_kw_especie.txt**). ") else "",
+  if (!is.na(kw_parque_p)) glue("Entre parques, las diferencias fueron {ifelse(as.numeric(gsub('< ','0.0009', kw_parque_p))<0.05,'detectables','no concluyentes')} (Kruskal–Wallis: p = {kw_parque_p}; **hojas2023_kw_parque.txt**). ") else "",
+  if (!is.na(alt_assoc_p)) glue("La altura de instalación se asoció {ifelse(!is.na(alt_assoc_rho) && as.numeric(alt_assoc_rho)>0,'positivamente','negativamente')} con el tamaño final (Spearman: ρ = {alt_assoc_rho}, p = {alt_assoc_p}; **hojas2023_spearman_altura.txt**). ") else ""
+)
+
+texto <- stringr::str_squish(texto)
+writeLines(texto, "output/resultados_redactados.md")
+cat(texto, sep = "\n")
+```
+
+
+
+
+
 

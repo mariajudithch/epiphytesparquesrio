@@ -1,0 +1,7 @@
+
+	Kruskal-Wallis rank sum test
+
+data:  hojas_2023 by epifita_canon
+Kruskal-Wallis chi-squared = 19.072, df = 6, p-value
+= 0.004043
+

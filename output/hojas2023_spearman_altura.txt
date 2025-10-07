@@ -1,0 +1,10 @@
+
+	Spearman's rank correlation rho
+
+data:  hojas2023_vivos$altura_planta and hojas2023_vivos$hojas_2023
+S = 193773, p-value = 0.04906
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.1983489 
+

@@ -1,0 +1,24 @@
+Call:
+survdiff(formula = Surv(time_months, status) ~ epifita_canon, 
+    data = first_flor)
+
+                                     N Observed Expected
+epifita_canon=Aechmea fasciata      31        4     4.44
+epifita_canon=Anthurium salvinii   116       17    16.53
+epifita_canon=Asplenium sp.         30        6     4.12
+epifita_canon=Billbergia nutans     14        1     2.04
+epifita_canon=Cattleya sp.          72       10    10.04
+epifita_canon=Guzmania sp.          21        3     3.03
+epifita_canon=Neoregelia carolinae  11        2     1.61
+epifita_canon=Schomburgkia sp.      15        1     2.19
+                                   (O-E)^2/E (O-E)^2/V
+epifita_canon=Aechmea fasciata      0.043143  0.049543
+epifita_canon=Anthurium salvinii    0.013554  0.022417
+epifita_canon=Asplenium sp.         0.860063  0.980288
+epifita_canon=Billbergia nutans     0.533639  0.577876
+epifita_canon=Cattleya sp.          0.000156  0.000209
+epifita_canon=Guzmania sp.          0.000330  0.000366
+epifita_canon=Neoregelia carolinae  0.096105  0.103007
+epifita_canon=Schomburgkia sp.      0.650539  0.706984
+
+ Chisq= 2.3  on 7 degrees of freedom, p= 0.9 

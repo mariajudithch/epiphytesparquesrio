@@ -1,0 +1,311 @@
+ind_id,epifita_canon,parque_norm,n_visitas_reg_hojas,n_visitas_reg_raices,n_eventos_hojas,n_eventos_raices,tasa_evento_x_visita_hojas,tasa_evento_x_visita_raices
+1,Anthurium salvinii,Parque Lineal El Refugio,10,10,1,1,0.1,0.1
+2,Anthurium salvinii,Parque Lineal El Refugio,10,10,1,1,0.1,0.1
+4,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+5,Anthurium salvinii,Parque de Conquistadores,8,8,0,1,0,0.125
+6,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+7,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+8,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,1,1,0.1111111111111111,0.1111111111111111
+11,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+12,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+13,Anthurium salvinii,Parque Lineal El Refugio,10,10,1,1,0.1,0.1
+17,Anthurium salvinii,Parque Lineal El Refugio,10,10,3,1,0.3,0.1
+18,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,8,9,0,0,0,0
+21,Anthurium salvinii,Parque de Conquistadores,10,10,1,1,0.1,0.1
+23,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+24,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+25,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+28,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+29,Anthurium salvinii,Parque de Conquistadores,10,9,1,1,0.1,0.1111111111111111
+30,Anthurium salvinii,Parque de Conquistadores,9,9,1,0,0.1111111111111111,0
+32,Anthurium salvinii,Parque Lineal El Refugio,10,10,1,0,0.1,0
+33,Anthurium salvinii,Parque de Conquistadores,7,7,1,1,0.14285714285714285,0.14285714285714285
+34,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+35,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,9,2,0,0.2,0
+36,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+37,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+38,Anthurium salvinii,Parque Lineal El Refugio,10,10,1,0,0.1,0
+40,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+41,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+42,Anthurium salvinii,Parque de Conquistadores,10,10,1,1,0.1,0.1
+43,Anthurium salvinii,Parque Lineal El Refugio,8,8,2,0,0.25,0
+44,Anthurium salvinii,Parque de Conquistadores,10,10,1,0,0.1,0
+45,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,8,8,1,1,0.125,0.125
+46,Anthurium salvinii,Parque Lineal El Refugio,10,10,2,0,0.2,0
+47,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+48,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+49,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+50,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+52,Anthurium salvinii,Parque de Conquistadores,10,10,0,2,0,0.2
+53,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,1,0,0.1111111111111111,0
+54,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+56,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+57,Anthurium salvinii,Parque Lineal El Refugio,10,10,2,1,0.2,0.1
+58,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,8,8,1,1,0.125,0.125
+60,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+61,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+62,Anthurium salvinii,Parque de Conquistadores,9,9,1,1,0.1111111111111111,0.1111111111111111
+63,Anthurium salvinii,Parque de Conquistadores,8,8,0,0,0,0
+64,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+65,Anthurium salvinii,Parque de Conquistadores,10,10,1,2,0.1,0.2
+66,Anthurium salvinii,Parque Lineal El Refugio,7,8,1,0,0.14285714285714285,0
+67,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+69,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+70,Anthurium salvinii,Parque Lineal El Refugio,10,9,0,0,0,0
+72,Anthurium salvinii,Parque Lineal El Refugio,7,7,1,1,0.14285714285714285,0.14285714285714285
+73,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+74,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+76,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+77,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+78,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,2,0.1,0.2
+79,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,3,1,0.3,0.1
+80,Anthurium salvinii,Parque Lineal El Refugio,10,10,2,1,0.2,0.1
+81,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+83,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+84,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+85,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+86,Anthurium salvinii,Parque de Conquistadores,10,10,4,0,0.4,0
+87,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,8,9,0,0,0,0
+88,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,7,7,2,1,0.2857142857142857,0.14285714285714285
+91,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+92,Anthurium salvinii,Parque Lineal El Refugio,8,8,1,0,0.125,0
+93,Anthurium salvinii,Parque Lineal El Refugio,8,8,1,1,0.125,0.125
+94,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+95,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,3,0,0.3,0
+98,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,0,2,0,0.2
+99,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+100,Anthurium salvinii,Parque Lineal El Refugio,10,10,1,0,0.1,0
+101,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+102,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+104,Anthurium salvinii,Parque de Conquistadores,8,8,0,0,0,0
+105,Anthurium salvinii,Parque Lineal El Refugio,10,10,1,0,0.1,0
+106,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,1,0,0.1111111111111111,0
+107,Anthurium salvinii,Parque de Conquistadores,9,9,3,0,0.3333333333333333,0
+108,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+109,Anthurium salvinii,Parque Lineal El Refugio,7,7,1,1,0.14285714285714285,0.14285714285714285
+111,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+112,Anthurium salvinii,Parque de Conquistadores,9,10,1,1,0.1111111111111111,0.1
+113,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+117,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+119,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+121,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+122,Anthurium salvinii,Parque de Conquistadores,8,8,1,0,0.125,0
+123,Anthurium salvinii,Parque Lineal El Refugio,9,9,1,2,0.1111111111111111,0.2222222222222222
+125,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+127,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,7,7,3,1,0.42857142857142855,0.14285714285714285
+128,Anthurium salvinii,Parque Lineal El Refugio,5,6,0,0,0,0
+129,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,0,0.2,0
+131,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+132,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+133,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,7,7,1,0,0.14285714285714285,0
+134,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,8,8,1,0,0.125,0
+135,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+136,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,5,6,0,0,0,0
+137,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+138,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+139,Anthurium salvinii,Parque Lineal El Refugio,9,8,1,1,0.1111111111111111,0.125
+140,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+141,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+142,Anthurium salvinii,Parque de Conquistadores,8,8,1,0,0.125,0
+143,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+145,Anthurium salvinii,Parque de Conquistadores,7,7,2,0,0.2857142857142857,0
+146,Anthurium salvinii,Parque de Conquistadores,9,10,3,2,0.3333333333333333,0.2
+147,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+148,Anthurium salvinii,Parque de Conquistadores,8,8,1,1,0.125,0.125
+149,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,10,9,1,0,0.1,0
+150,Anthurium salvinii,Parque Lineal El Refugio,10,10,1,1,0.1,0.1
+152,Asplenium sp.,Parque Lineal El Refugio,5,6,0,0,0,0
+153,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,2,0.14285714285714285,0.2857142857142857
+155,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+157,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,2,1,0.2857142857142857,0.14285714285714285
+158,Asplenium sp.,Parque de Conquistadores,8,8,1,1,0.125,0.125
+160,Asplenium sp.,Parque de Conquistadores,6,6,0,0,0,0
+161,Asplenium sp.,Parque de Conquistadores,7,7,3,3,0.42857142857142855,0.42857142857142855
+162,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+164,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,5,6,0,0,0,0
+165,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+166,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,3,1,0.42857142857142855,0.14285714285714285
+167,Asplenium sp.,Parque Lineal El Refugio,7,7,1,1,0.14285714285714285,0.14285714285714285
+168,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,6,6,1,0,0.16666666666666666,0
+169,Asplenium sp.,Parque de Conquistadores,7,7,1,0,0.14285714285714285,0
+170,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+171,Asplenium sp.,Parque de Conquistadores,7,7,1,0,0.14285714285714285,0
+172,Asplenium sp.,Parque de Conquistadores,6,6,1,0,0.16666666666666666,0
+173,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,2,2,0.2857142857142857,0.2857142857142857
+175,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+176,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,1,0,0.16666666666666666
+178,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+180,Asplenium sp.,Parque Lineal El Refugio,5,6,0,0,0,0
+182,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,8,8,2,1,0.25,0.125
+183,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,0,0.14285714285714285,0
+184,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+185,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+187,Asplenium sp.,Parque de Conquistadores,7,7,1,2,0.14285714285714285,0.2857142857142857
+188,Asplenium sp.,Parque de Conquistadores,6,7,0,0,0,0
+189,Asplenium sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+190,Asplenium sp.,Parque Lineal El Refugio,7,7,3,0,0.42857142857142855,0
+191,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+192,Aechmea fasciata,Parque de Conquistadores,10,10,0,0,0,0
+193,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+194,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,8,8,1,0,0.125,0
+197,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,9,9,1,1,0.1111111111111111,0.1111111111111111
+198,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+199,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+200,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,7,8,1,0,0.14285714285714285,0
+201,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,10,9,1,1,0.1,0.1111111111111111
+204,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,9,9,1,0,0.1111111111111111,0
+205,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,9,9,2,0,0.2222222222222222,0
+206,Aechmea fasciata,Parque de Conquistadores,10,10,0,0,0,0
+207,Aechmea fasciata,Parque Lineal El Refugio,9,2,1,0,0.1111111111111111,0
+209,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+210,Aechmea fasciata,Parque Lineal El Refugio,10,8,0,0,0,0
+211,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,9,9,1,0,0.1111111111111111,0
+212,Aechmea fasciata,Parque de Conquistadores,9,9,0,0,0,0
+213,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+214,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+216,Aechmea fasciata,Parque de Conquistadores,10,10,1,0,0.1,0
+217,Aechmea fasciata,Parque de Conquistadores,10,10,0,0,0,0
+218,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+220,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+221,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+222,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,8,8,3,1,0.375,0.125
+223,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,8,8,2,2,0.25,0.25
+224,Aechmea fasciata,Parque de Conquistadores,9,9,1,1,0.1111111111111111,0.1111111111111111
+225,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+226,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,7,7,2,0,0.2857142857142857,0
+230,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,3,1,0.3,0.1
+231,Aechmea fasciata,Parque Lineal El Refugio,8,9,0,0,0,0
+232,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,9,1,0,0.1,0
+233,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+236,Aechmea fasciata,Parque de Conquistadores,6,6,0,0,0,0
+238,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+239,Aechmea fasciata,Parque de Conquistadores,10,10,0,0,0,0
+240,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+241,Billbergia nutans,Parque de Conquistadores,8,8,2,1,0.25,0.125
+242,Guzmania sp.,Parque de Conquistadores,8,8,0,0,0,0
+243,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,0,0.14285714285714285,0
+244,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,8,8,2,1,0.25,0.125
+245,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+246,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+247,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,0,0.14285714285714285,0
+248,Guzmania sp.,Parque de Conquistadores,8,8,0,1,0,0.125
+249,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+253,Guzmania sp.,Parque Lineal El Refugio,7,7,1,1,0.14285714285714285,0.14285714285714285
+254,Guzmania sp.,Parque de Conquistadores,7,7,1,0,0.14285714285714285,0
+255,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,5,6,0,0,0,0
+256,Guzmania sp.,Parque de Conquistadores,8,8,0,1,0,0.125
+257,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+258,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,8,8,0,0,0,0
+259,Guzmania sp.,Parque de Conquistadores,6,6,0,0,0,0
+260,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+261,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+262,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,10,9,2,0,0.2,0
+264,Guzmania sp.,Parque de Conquistadores,7,7,0,0,0,0
+265,Guzmania sp.,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+268,Neoregelia carolinae,Parque de Conquistadores,8,9,1,0,0.125,0
+269,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,6,6,0,1,0,0.16666666666666666
+270,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,10,10,3,1,0.3,0.1
+276,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+277,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,8,8,1,0,0.125,0
+278,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,8,8,1,0,0.125,0
+279,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,8,8,1,0,0.125,0
+283,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+284,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,10,10,0,1,0,0.1
+285,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,7,7,1,0,0.14285714285714285,0
+286,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+287,Billbergia nutans,Parque Lineal El Refugio,10,9,0,0,0,0
+288,Billbergia nutans,Parque de Conquistadores,6,6,0,0,0,0
+289,Billbergia nutans,Parque El Triángulo y quebrada La Picacha,7,7,1,0,0.14285714285714285,0
+290,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+291,Billbergia nutans,Parque Lineal El Refugio,9,9,0,0,0,0
+293,Billbergia nutans,Parque de Conquistadores,6,6,0,0,0,0
+294,Neoregelia carolinae,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+296,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+297,Cattleya sp.,Parque de Conquistadores,9,9,0,0,0,0
+298,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,9,9,0,1,0,0.1111111111111111
+299,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,9,9,0,1,0,0.1111111111111111
+300,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+301,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,0,0.14285714285714285,0
+302,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,3,0,0.3
+304,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+305,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+306,Cattleya sp.,Parque Lineal El Refugio,9,9,0,0,0,0
+307,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,0,0.14285714285714285,0
+310,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+312,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,8,0,0,0,0
+314,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+315,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,2,0.1,0.2
+316,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,7,0,0,0,0
+317,Cattleya sp.,Parque de Conquistadores,9,9,0,0,0,0
+318,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,5,6,0,0,0,0
+319,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+320,Cattleya sp.,Parque Lineal El Refugio,9,9,1,0,0.1111111111111111,0
+321,Cattleya sp.,Parque de Conquistadores,10,10,0,1,0,0.1
+322,Cattleya sp.,Parque de Conquistadores,10,10,1,1,0.1,0.1
+323,Cattleya sp.,Parque Lineal El Refugio,8,8,0,0,0,0
+324,Cattleya sp.,Parque de Conquistadores,10,10,1,1,0.1,0.1
+325,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,8,8,0,0,0,0
+326,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+327,Cattleya sp.,Parque de Conquistadores,10,10,0,0,0,0
+328,Cattleya sp.,Parque de Conquistadores,10,9,1,0,0.1,0
+329,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+330,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,9,9,0,0,0,0
+332,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,2,0.1,0.2
+333,Cattleya sp.,Parque de Conquistadores,9,9,1,0,0.1111111111111111,0
+334,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+335,Cattleya sp.,Parque Lineal El Refugio,7,7,2,1,0.2857142857142857,0.14285714285714285
+336,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,8,2,0,0.2,0
+337,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,8,8,1,1,0.125,0.125
+338,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+339,Cattleya sp.,Parque de Conquistadores,6,6,0,0,0,0
+340,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+342,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+343,Cattleya sp.,Parque Lineal El Refugio,7,7,1,1,0.14285714285714285,0.14285714285714285
+344,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,6,1,0,0.16666666666666666,0
+345,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+346,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,2,0,0.2,0
+350,Cattleya sp.,Parque Lineal El Refugio,6,6,0,0,0,0
+351,Cattleya sp.,Parque de Conquistadores,6,6,0,1,0,0.16666666666666666
+353,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+354,Cattleya sp.,Parque de Conquistadores,7,7,1,1,0.14285714285714285,0.14285714285714285
+355,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,7,1,2,0.16666666666666666,0.2857142857142857
+357,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+358,Schomburgkia sp.,Parque Lineal El Refugio,10,10,1,1,0.1,0.1
+359,Cattleya sp.,Parque Lineal El Refugio,5,6,0,1,0,0.16666666666666666
+360,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,0,0,0,0
+361,Cattleya sp.,Parque de Conquistadores,10,10,2,0,0.2,0
+362,Cattleya sp.,Parque de Conquistadores,10,10,1,2,0.1,0.2
+363,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,7,1,1,0.16666666666666666,0.14285714285714285
+364,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+365,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+366,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+368,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,8,8,1,1,0.125,0.125
+369,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,5,6,0,0,0,0
+370,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,0,0,0,0
+371,Cattleya sp.,Parque de Conquistadores,10,10,1,1,0.1,0.1
+372,Aechmea fasciata,Parque El Triángulo y quebrada La Picacha,10,10,2,0,0.2,0
+373,Cattleya sp.,Parque de Conquistadores,10,10,1,1,0.1,0.1
+374,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,6,1,0,0.16666666666666666,0
+375,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,5,5,0,0,0,0
+376,Cattleya sp.,Parque de Conquistadores,7,7,1,0,0.14285714285714285,0
+377,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,8,8,1,1,0.125,0.125
+378,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+380,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,7,7,1,1,0.14285714285714285,0.14285714285714285
+381,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+383,Cattleya sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+384,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,7,7,0,1,0,0.14285714285714285
+385,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,10,10,2,1,0.2,0.1
+387,Schomburgkia sp.,Parque de Conquistadores,10,10,1,1,0.1,0.1
+388,Schomburgkia sp.,Parque de Conquistadores,10,10,1,1,0.1,0.1
+389,Cattleya sp.,Parque Lineal El Refugio,10,10,0,1,0,0.1
+390,Cattleya sp.,Parque Lineal El Refugio,10,10,1,2,0.1,0.2
+391,Schomburgkia sp.,Parque de Conquistadores,7,7,0,1,0,0.14285714285714285
+393,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+394,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,0,0.1,0
+395,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+396,Schomburgkia sp.,Parque de Conquistadores,6,6,0,1,0,0.16666666666666666
+397,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+398,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+399,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,10,10,1,1,0.1,0.1
+400,Schomburgkia sp.,Parque El Triángulo y quebrada La Picacha,6,6,0,0,0,0
+NA,Anthurium salvinii,Parque El Triángulo y quebrada La Picacha,3,3,0,0,0,0

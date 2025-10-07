@@ -1,0 +1,7 @@
+
+	Kruskal-Wallis rank sum test
+
+data:  hojas_2023 by parque_norm
+Kruskal-Wallis chi-squared = 8.1834, df = 2, p-value
+= 0.01671
+

@@ -1,0 +1,311 @@
+"ind_id","arbol_id","parque_norm","epifita_canon","ubicacion_en_el_arbol","altura_planta","corteza","causa_final","primer_evento_fecha","fecha_instalacion","fecha_evento","time_days","time_months","status_natural"
+32,1,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",4.8,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+72,1,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",4.4,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+180,1,"Parque Lineal El Refugio","Asplenium sp.","rama interna",6,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+335,1,"Parque Lineal El Refugio","Cattleya sp.","rama interna",5.3,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+1,2,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",5.9,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+2,2,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",3.2,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+38,2,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",4.7,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+105,2,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",4.9,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+123,2,"Parque Lineal El Refugio","Anthurium salvinii","fuste",6.8,"Rugosa","desaparecido",2018-02-05,2016-03-01,2018-02-05,706,23.1950718685832,0
+128,2,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",4.8,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+152,2,"Parque Lineal El Refugio","Asplenium sp.","rama externa",5.3,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+320,2,"Parque Lineal El Refugio","Cattleya sp.","rama externa",5.1,"Rugosa","desaparecido",2016-06-16,2016-03-01,2016-06-16,107,3.51540041067762,0
+343,2,"Parque Lineal El Refugio","Cattleya sp.","rama interna",3.2,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+359,2,"Parque Lineal El Refugio","Cattleya sp.","rama externa",4.1,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+66,3,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",4.1,"Rugosa","vivo_2023",2018-02-05,2016-03-01,2023-07-01,2678,87.9835728952772,0
+80,3,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",3.2,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+100,3,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",3,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+139,3,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",4.6,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+207,3,"Parque Lineal El Refugio","Aechmea fasciata","fuste",3.7,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+210,3,"Parque Lineal El Refugio","Aechmea fasciata","rama externa",3.2,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+287,3,"Parque Lineal El Refugio","Billbergia nutans","rama externa",2.9,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+70,5,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",5.3,"Lisa","antropico",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+93,5,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",4.9,"Lisa","antropico",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+109,5,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",4.6,"Lisa","antropico",2016-09-18,2016-03-01,2023-07-01,2678,87.9835728952772,0
+190,5,"Parque Lineal El Refugio","Asplenium sp.","rama externa",5,"Lisa","antropico",2016-09-18,2016-03-01,2023-07-01,2678,87.9835728952772,0
+231,5,"Parque Lineal El Refugio","Aechmea fasciata","rama externa",3.5,"Lisa","antropico",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+323,5,"Parque Lineal El Refugio","Cattleya sp.","rama interna",4.1,"Lisa","antropico",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+350,5,"Parque Lineal El Refugio","Cattleya sp.","rama externa",4.2,"Lisa","antropico",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+358,5,"Parque Lineal El Refugio","Schomburgkia sp.","fuste",3.8,"Lisa","antropico",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+150,6,"Parque Lineal El Refugio","Anthurium salvinii","rama externa",4.8,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+167,6,"Parque Lineal El Refugio","Asplenium sp.","rama externa",3.9,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+291,6,"Parque Lineal El Refugio","Billbergia nutans","rama externa",4.1,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+389,6,"Parque Lineal El Refugio","Cattleya sp.","rama externa",4.6,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+390,6,"Parque Lineal El Refugio","Cattleya sp.","rama externa",4.7,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+13,7,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",2.8,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+46,7,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",3.8,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+57,7,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",2.8,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+253,7,"Parque Lineal El Refugio","Guzmania sp.","rama externa",2.9,"Rugosa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+306,7,"Parque Lineal El Refugio","Cattleya sp.","rama externa",3.5,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+17,8,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",3.1,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+43,8,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",3.4,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+92,8,"Parque Lineal El Refugio","Anthurium salvinii","rama interna",2.8,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+95,9,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.1,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+135,9,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.2,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+147,9,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",2.2,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+270,9,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama externa",2.4,"Lisa","vivo_2023",2016-06-16,2016-03-01,2023-07-01,2678,87.9835728952772,0
+394,9,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","rama externa",2.4,"Lisa","muerte_natural",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,1
+37,10,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",3,"Rugosa","vivo_2023",2016-09-18,2016-03-01,2023-07-01,2678,87.9835728952772,0
+76,10,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.4,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+304,10,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.35,"Rugosa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+357,10,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.9,"Rugosa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+18,11,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",2.2,"Rugosa","vivo_2023",2017-05-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+136,11,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.4,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+209,11,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama externa",2.7,"Rugosa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+285,11,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama externa",3.7,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+330,11,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",2.1,"Rugosa","muerte_natural",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,1
+366,11,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",2.35,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+12,12,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.8,"Lisa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+78,12,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",4.1,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+83,12,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",1.3,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+91,12,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.1,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+157,12,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",5.2,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+205,12,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama interna",3.6,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+314,12,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",4.4,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+353,12,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",4.6,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+24,13,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.3,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+41,13,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.35,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+85,13,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.7,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+88,13,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",2.9,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+119,13,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.6,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+221,13,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama interna",2.1,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+245,13,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",2.5,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+277,13,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama externa",2.5,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+6,14,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",4.4,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+73,14,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.5,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+197,14,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama interna",2.9,"Lisa","vivo_2023",2018-07-12,2016-03-01,2023-07-01,2678,87.9835728952772,0
+200,14,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama interna",3.6,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+201,14,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama interna",3.1,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+218,14,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama interna",2.1,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+346,14,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",2.8,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+372,14,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama interna",2,"Lisa","muerte_natural",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,1
+4,15,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",5.4,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+7,15,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",4.6,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+34,15,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.55,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+58,15,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",4.7,"Lisa","vivo_2023",2018-07-12,2016-03-01,2023-07-01,2678,87.9835728952772,0
+164,15,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",2.9,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+255,15,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",2.7,"Lisa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+276,15,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama interna",4.9,"Lisa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+318,15,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.7,"Lisa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+138,16,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.8,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+193,16,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama externa",3.7,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+315,16,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.8,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+365,16,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",2.7,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+377,16,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",2.5,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+54,17,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.6,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+244,17,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",3.25,"Rugosa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+283,17,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama interna",3.9,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+298,17,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",4,"Rugosa","vivo_2023",2017-05-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+332,17,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.35,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+45,18,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.8,"Rugosa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+132,18,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",3.5,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+173,18,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",3.3,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+211,18,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama externa",3.4,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+302,18,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.3,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+40,19,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",2.8,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+50,19,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.3,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+127,19,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.7,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+312,19,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",3.7,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+368,19,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",3.3,"Rugosa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+385,19,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","rama externa",3.8,"Rugosa","vivo_2023",2016-06-16,2016-03-01,2023-07-01,2678,87.9835728952772,0
+25,20,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.45,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+81,20,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.4,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+230,20,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama externa",2.6,"Rugosa","vivo_2023",2016-06-16,2016-03-01,2023-07-01,2678,87.9835728952772,0
+238,20,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama interna",2.6,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+325,20,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",3.2,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+336,20,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",2.7,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+337,20,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",2.6,"Rugosa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+125,21,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",3.6,"Lisa","desaparecido",2018-12-12,2016-03-01,2018-12-12,1016,33.3798767967146,0
+222,21,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama externa",2.7,"Lisa","muerte_natural",2016-06-16,2016-03-01,2016-06-16,107,3.51540041067762,1
+226,21,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama externa",3.8,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+262,21,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",3.5,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+300,21,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",2.9,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+87,22,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+170,22,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama interna",3.1,"Lisa","muerte_natural",2016-06-16,2016-03-01,2016-06-16,107,3.51540041067762,1
+319,22,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",2.5,"Lisa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+340,22,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",4.2,"Lisa","muerte_natural",2016-06-16,2016-03-01,2016-06-16,107,3.51540041067762,1
+360,22,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.2,"Lisa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+48,23,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.5,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+49,23,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",1.9,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+106,23,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",3.2,"Rugosa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+191,23,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama interna",3.7,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+247,23,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",4.2,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+133,24,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",3.3,"Lisa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+183,24,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",3.1,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+194,24,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama interna",4.2,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+232,24,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama interna",4,"Lisa","muerte_natural",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,1
+257,24,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",4,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+338,24,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+374,24,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",4.5,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+393,24,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","rama externa",3.9,"Lisa","vivo_2023",2016-09-18,2016-03-01,2023-07-01,2678,87.9835728952772,0
+121,25,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.1,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+243,25,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",4.7,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+278,25,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama externa",2.6,"Lisa","muerte_natural",2016-06-16,2016-03-01,2016-06-16,107,3.51540041067762,1
+279,25,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama interna",2.7,"Lisa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+370,25,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",4.7,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+400,25,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","rama interna",4.6,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+69,26,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.6,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+111,26,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",2.1,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+113,26,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",3.5,"Rugosa","muerte_natural",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,1
+185,26,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",2,"Rugosa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+249,26,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama interna",3.1,"Rugosa","muerte_natural",2017-05-01,2016-03-01,2017-05-01,426,13.9958932238193,1
+334,26,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama interna",3,"Rugosa","muerte_natural",2017-05-01,2016-03-01,2017-05-01,426,13.9958932238193,1
+28,27,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",4.7,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+129,27,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3.6,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+149,27,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",4.9,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+199,27,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama interna",5.2,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+383,27,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",4.7,"Rugosa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+399,27,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","rama externa",5.1,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+8,28,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",3.2,"Rugosa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+60,28,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",3.2,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+131,28,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama interna",4.1,"Rugosa","vivo_2023",2018-07-12,2016-03-01,2023-07-01,2678,87.9835728952772,0
+165,28,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",2.5,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+220,28,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","fuste",3.3,"Rugosa","vivo_2023",2017-05-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+261,28,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama interna",3.8,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+284,28,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama externa",2.8,"Rugosa","muerte_natural",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,1
+384,28,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","rama externa",2.9,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+102,29,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",2.6,"Lisa","antropico",2017-05-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+155,29,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",3.6,"Lisa","antropico",2017-12-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+176,29,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama interna",3.8,"Lisa","antropico",2017-05-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+269,29,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","fuste",3.4,"Lisa","antropico",2017-05-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+301,29,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",5.2,"Lisa","antropico",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+35,30,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3.5,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+64,30,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",2.4,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+79,30,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+223,30,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3.6,"Lisa","desaparecido",2018-02-05,2016-03-01,2018-02-05,706,23.1950718685832,0
+294,30,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama externa",3.5,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+23,31,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",4.5,"Lisa","antropico",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+99,31,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","fuste",4.4,"Lisa","muerte_natural",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,1
+182,31,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","fuste",3.7,"Lisa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+307,31,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",4,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+369,31,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",3.2,"Lisa","muerte_natural",2017-05-01,2016-03-01,2017-05-01,426,13.9958932238193,1
+NA,31,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii",NA,NA,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+140,32,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",4.2,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+143,32,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3.2,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+178,32,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","fuste",2.9,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+204,32,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","fuste",3.6,"Lisa","muerte_natural",2017-05-01,2016-03-01,2017-05-01,426,13.9958932238193,1
+316,32,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",4.1,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+355,32,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",3.5,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+363,32,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.8,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+378,32,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+47,33,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",2.4,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+101,33,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",2.5,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+233,33,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","fuste",3.3,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+345,33,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",3.5,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+67,34,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",2.9,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+117,34,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",3.7,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+153,34,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",3.6,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+290,34,"Parque El Triángulo y quebrada La Picacha","Neoregelia carolinae","rama interna",4.2,"Lisa","vivo_2023",2017-05-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+296,34,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",3.4,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+342,34,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.8,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+168,35,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",4.6,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+246,35,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",4.5,"Rugosa","muerte_natural",2017-05-01,2016-03-01,2017-05-01,426,13.9958932238193,1
+258,35,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",3.4,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+305,35,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.8,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+380,35,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",3.3,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+61,36,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3.3,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+77,36,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",2.8,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+213,36,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","fuste",3.4,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+310,36,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",2.8,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+375,36,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",3.3,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+11,37,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",4.3,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+36,37,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",5.5,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+198,37,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","rama externa",3.3,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+265,37,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",5,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+286,37,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama interna",2.45,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+299,37,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",2.3,"Rugosa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+364,37,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","rama externa",4.2,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+397,37,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","rama externa",4.4,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+84,38,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",7.2,"Rugosa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+137,38,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",6.2,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+162,38,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama externa",7.7,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+214,38,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","fuste",5.3,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+240,38,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama externa",4.7,"Rugosa","vivo_2023",2018-12-12,2016-03-01,2023-07-01,2678,87.9835728952772,0
+260,38,"Parque El Triángulo y quebrada La Picacha","Guzmania sp.","rama interna",4.4,"Rugosa","muerte_natural",2017-05-01,2016-03-01,2017-05-01,426,13.9958932238193,1
+329,38,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",6.8,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+344,38,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",5.1,"Rugosa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+74,39,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3.7,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+94,39,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",4.1,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+134,39,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3.1,"Lisa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+166,39,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","rama interna",4.6,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+381,39,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","fuste",3.4,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+56,40,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3.1,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+225,40,"Parque El Triángulo y quebrada La Picacha","Aechmea fasciata","fuste",3.6,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+289,40,"Parque El Triángulo y quebrada La Picacha","Billbergia nutans","rama externa",4.7,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+326,40,"Parque El Triángulo y quebrada La Picacha","Cattleya sp.","fuste",3.2,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+395,40,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","fuste",3.7,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+53,41,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",3,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+98,41,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","fuste",2.4,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+108,41,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",4.6,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+141,41,"Parque El Triángulo y quebrada La Picacha","Anthurium salvinii","rama externa",4.2,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+175,41,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","fuste",3.3,"Lisa","desaparecido",2016-05-12,2016-03-01,2016-05-12,72,2.36550308008214,0
+184,41,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","fuste",3.7,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+189,41,"Parque El Triángulo y quebrada La Picacha","Asplenium sp.","fuste",2.2,"Lisa","desaparecido",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,0
+398,41,"Parque El Triángulo y quebrada La Picacha","Schomburgkia sp.","fuste",2.8,"Lisa","desaparecido",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,0
+63,42,"Parque de Conquistadores","Anthurium salvinii","rama interna",3.9,"Lisa","desaparecido",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,0
+104,42,"Parque de Conquistadores","Anthurium salvinii","rama externa",4.9,"Lisa","desaparecido",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,0
+112,42,"Parque de Conquistadores","Anthurium salvinii","rama interna",4.4,"Lisa","desaparecido",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,0
+146,42,"Parque de Conquistadores","Anthurium salvinii","rama externa",3.7,"Lisa","muerte_natural",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,1
+148,42,"Parque de Conquistadores","Anthurium salvinii","rama externa",3.9,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+169,42,"Parque de Conquistadores","Asplenium sp.","rama externa",3.5,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+239,42,"Parque de Conquistadores","Aechmea fasciata","rama externa",3.9,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+333,42,"Parque de Conquistadores","Cattleya sp.","rama externa",3.4,"Lisa","desaparecido",2016-06-16,2016-03-01,2016-06-16,107,3.51540041067762,0
+339,42,"Parque de Conquistadores","Cattleya sp.","rama externa",6.1,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+354,42,"Parque de Conquistadores","Cattleya sp.","rama interna",4.9,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+52,43,"Parque de Conquistadores","Anthurium salvinii","fuste",7,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+86,43,"Parque de Conquistadores","Anthurium salvinii","fuste",4.3,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+361,43,"Parque de Conquistadores","Cattleya sp.","fuste",7.2,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+371,43,"Parque de Conquistadores","Cattleya sp.","rama externa",5.7,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+373,43,"Parque de Conquistadores","Cattleya sp.","rama externa",4.7,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+29,44,"Parque de Conquistadores","Anthurium salvinii","rama externa",4.8,"Lisa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+187,44,"Parque de Conquistadores","Asplenium sp.","rama externa",6.3,"Lisa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+216,44,"Parque de Conquistadores","Aechmea fasciata","rama externa",5.4,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+321,44,"Parque de Conquistadores","Cattleya sp.","fuste",4.8,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+322,44,"Parque de Conquistadores","Cattleya sp.","fuste",4.3,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+324,44,"Parque de Conquistadores","Cattleya sp.","rama externa",5.4,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+351,44,"Parque de Conquistadores","Cattleya sp.","fuste",4.6,"Lisa","muerte_natural",2017-05-01,2016-03-01,2017-05-01,426,13.9958932238193,1
+376,44,"Parque de Conquistadores","Cattleya sp.","rama externa",6,"Lisa","muerte_natural",2017-05-01,2016-03-01,2017-05-01,426,13.9958932238193,1
+387,44,"Parque de Conquistadores","Schomburgkia sp.","rama interna",5.8,"Lisa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+388,44,"Parque de Conquistadores","Schomburgkia sp.","fuste",4,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+5,45,"Parque de Conquistadores","Anthurium salvinii","fuste",8,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+44,45,"Parque de Conquistadores","Anthurium salvinii","fuste",6.9,"Lisa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+142,45,"Parque de Conquistadores","Anthurium salvinii","fuste",7,"Lisa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+160,45,"Parque de Conquistadores","Asplenium sp.","fuste",5.4,"Lisa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+236,45,"Parque de Conquistadores","Aechmea fasciata","fuste",5.3,"Lisa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+242,45,"Parque de Conquistadores","Guzmania sp.","fuste",6,"Lisa","desaparecido",2018-12-12,2016-03-01,2018-12-12,1016,33.3798767967146,0
+248,45,"Parque de Conquistadores","Guzmania sp.","fuste",5.8,"Lisa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+396,45,"Parque de Conquistadores","Schomburgkia sp.","fuste",5.7,"Lisa","desaparecido",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,0
+62,46,"Parque de Conquistadores","Anthurium salvinii","rama externa",6.8,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+107,46,"Parque de Conquistadores","Anthurium salvinii","rama externa",5.4,"Rugosa","vivo_2023",2018-07-12,2016-03-01,2023-07-01,2678,87.9835728952772,0
+224,46,"Parque de Conquistadores","Aechmea fasciata","rama externa",4,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+256,46,"Parque de Conquistadores","Guzmania sp.","rama externa",6.4,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+264,46,"Parque de Conquistadores","Guzmania sp.","rama externa",5.5,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+317,46,"Parque de Conquistadores","Cattleya sp.","rama externa",5.5,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+328,46,"Parque de Conquistadores","Cattleya sp.","rama externa",4.4,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+362,46,"Parque de Conquistadores","Cattleya sp.","rama externa",7,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+42,47,"Parque de Conquistadores","Anthurium salvinii","rama externa",7,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+65,47,"Parque de Conquistadores","Anthurium salvinii","rama externa",5,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+145,47,"Parque de Conquistadores","Anthurium salvinii","rama externa",5.9,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+212,47,"Parque de Conquistadores","Aechmea fasciata","rama externa",6,"Rugosa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+327,47,"Parque de Conquistadores","Cattleya sp.","rama externa",7.2,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+161,48,"Parque de Conquistadores","Asplenium sp.","rama externa",6.3,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+172,48,"Parque de Conquistadores","Asplenium sp.","rama externa",2.7,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+192,48,"Parque de Conquistadores","Aechmea fasciata","rama externa",6.1,"Rugosa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+206,48,"Parque de Conquistadores","Aechmea fasciata","rama externa",7.8,"Rugosa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+217,48,"Parque de Conquistadores","Aechmea fasciata","rama externa",8,"Rugosa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+33,49,"Parque de Conquistadores","Anthurium salvinii","rama externa",5,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+254,49,"Parque de Conquistadores","Guzmania sp.","rama externa",5.3,"Rugosa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+259,49,"Parque de Conquistadores","Guzmania sp.","rama externa",6.8,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+293,49,"Parque de Conquistadores","Billbergia nutans","fuste",4,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+297,49,"Parque de Conquistadores","Cattleya sp.","fuste",7,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+21,50,"Parque de Conquistadores","Anthurium salvinii","rama externa",2.4,"Rugosa","vivo_2023",NA,2016-03-01,2023-07-01,2678,87.9835728952772,0
+241,50,"Parque de Conquistadores","Billbergia nutans","rama externa",5.3,"Rugosa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1
+268,50,"Parque de Conquistadores","Neoregelia carolinae","rama externa",5,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+288,50,"Parque de Conquistadores","Billbergia nutans","rama externa",6.1,"Rugosa","desaparecido",2023-07-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+391,50,"Parque de Conquistadores","Schomburgkia sp.","rama externa",2.3,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+30,51,"Parque de Conquistadores","Anthurium salvinii","rama externa",2.5,"Rugosa","vivo_2023",2017-06-01,2016-03-01,2023-07-01,2678,87.9835728952772,0
+122,51,"Parque de Conquistadores","Anthurium salvinii","rama externa",3,"Rugosa","desaparecido",2017-06-01,2016-03-01,2017-06-01,457,15.0143737166324,0
+158,51,"Parque de Conquistadores","Asplenium sp.","rama externa",2.8,"Rugosa","desaparecido",2018-07-12,2016-03-01,2018-07-12,863,28.35318275154,0
+171,51,"Parque de Conquistadores","Asplenium sp.","rama externa",2.9,"Rugosa","muerte_natural",2017-12-01,2016-03-01,2017-12-01,640,21.0266940451745,1
+188,51,"Parque de Conquistadores","Asplenium sp.","rama externa",4.2,"Rugosa","muerte_natural",2016-09-18,2016-03-01,2016-09-18,201,6.60369609856263,1

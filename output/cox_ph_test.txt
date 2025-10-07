@@ -1,0 +1,7 @@
+                       chisq df    p
+epifita_canon          8.767  7 0.27
+parque_norm            0.671  2 0.72
+scale(altura_planta)   0.797  1 0.37
+ubicacion_en_el_arbol  1.988  2 0.37
+corteza                0.217  1 0.64
+GLOBAL                10.855 13 0.62

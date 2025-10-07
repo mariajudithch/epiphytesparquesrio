@@ -1,0 +1,4 @@
+parque_norm,n_eventos_hojas_mediana,n_eventos_hojas_iqr,n_eventos_raices_mediana,n_eventos_raices_iqr,tasa_evento_x_visita_hojas_mediana,tasa_evento_x_visita_hojas_iqr,tasa_evento_x_visita_raices_mediana,tasa_evento_x_visita_raices_iqr
+Parque El Triángulo y quebrada La Picacha,1,1,0,1,0.1,0.14285714285714285,0,0.1
+Parque Lineal El Refugio,1,1,0,1,0.1,0.14285714285714285,0,0.11875
+Parque de Conquistadores,1,1,0,1,0.1,0.125,0,0.12152777777777778
