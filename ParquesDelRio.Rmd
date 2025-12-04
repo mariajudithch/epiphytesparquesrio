@@ -102,7 +102,7 @@ fix_epifitas <- tribble(
   "(?i)guzmania",             "Guzmania sp.",
   "(?i)neoregelia\\s*coral",  "Neoregelia carolinae",
   "(?i)cattleya",             "Cattleya sp.",
-  "(?i)schomburgkia|laelia",  "Schomburgkia sp."
+  "(?i)schomburgkia|laelia",  "Laelia sp."
 )
 
 df <- df %>% mutate(epifita_canon = NA_character_)
