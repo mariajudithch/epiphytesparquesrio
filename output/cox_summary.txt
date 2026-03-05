@@ -33,94 +33,52 @@ scale(altura_planta)                  0.1717    0.1486
 ubicacion_en_el_arbolrama interna     0.3392    0.4367
 ubicacion_en_el_arbolfuste            0.3906    0.4180
 cortezaLisa                           0.2743    0.2914
-                                         z Pr(>|z|)
-epifita_canonCattleya sp.            3.623 0.000291
-epifita_canonAechmea fasciata        2.475 0.013310
-epifita_canonAsplenium sp.           4.942 7.75e-07
-epifita_canonGuzmania sp.            4.199 2.68e-05
-epifita_canonLaelia sp.              2.482 0.013058
-epifita_canonBillbergia nutans       1.801 0.071716
-epifita_canonNeoregelia carolinae    2.480 0.013131
-parque_normParque de Conquistadores  0.671 0.502204
-parque_normParque Lineal El Refugio -1.866 0.062069
-scale(altura_planta)                -2.400 0.016387
-ubicacion_en_el_arbolrama interna   -0.391 0.695666
-ubicacion_en_el_arbolfuste          -1.475 0.140200
-cortezaLisa                          1.655 0.098014
-                                       
-epifita_canonCattleya sp.           ***
-epifita_canonAechmea fasciata       *  
-epifita_canonAsplenium sp.          ***
-epifita_canonGuzmania sp.           ***
-epifita_canonLaelia sp.             *  
-epifita_canonBillbergia nutans      .  
-epifita_canonNeoregelia carolinae   *  
-parque_normParque de Conquistadores    
-parque_normParque Lineal El Refugio .  
-scale(altura_planta)                *  
-ubicacion_en_el_arbolrama interna      
-ubicacion_en_el_arbolfuste             
-cortezaLisa                         .  
+                                         z Pr(>|z|)    
+epifita_canonCattleya sp.            3.623 0.000291 ***
+epifita_canonAechmea fasciata        2.475 0.013310 *  
+epifita_canonAsplenium sp.           4.942 7.75e-07 ***
+epifita_canonGuzmania sp.            4.199 2.68e-05 ***
+epifita_canonLaelia sp.              2.482 0.013058 *  
+epifita_canonBillbergia nutans       1.801 0.071716 .  
+epifita_canonNeoregelia carolinae    2.480 0.013131 *  
+parque_normParque de Conquistadores  0.671 0.502204    
+parque_normParque Lineal El Refugio -1.866 0.062069 .  
+scale(altura_planta)                -2.400 0.016387 *  
+ubicacion_en_el_arbolrama interna   -0.391 0.695666    
+ubicacion_en_el_arbolfuste          -1.475 0.140200    
+cortezaLisa                          1.655 0.098014 .  
 ---
 Signif. codes:  
 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-                                    exp(coef)
-epifita_canonCattleya sp.              6.1548
-epifita_canonAechmea fasciata          4.0863
-epifita_canonAsplenium sp.             9.4229
-epifita_canonGuzmania sp.              8.9296
-epifita_canonLaelia sp.                4.4451
-epifita_canonBillbergia nutans         3.8339
-epifita_canonNeoregelia carolinae      4.8853
-parque_normParque de Conquistadores    1.2442
-parque_normParque Lineal El Refugio    0.3410
-scale(altura_planta)                   0.7001
-ubicacion_en_el_arbolrama interna      0.8430
-ubicacion_en_el_arbolfuste             0.5398
-cortezaLisa                            1.6196
-                                    exp(-coef)
-epifita_canonCattleya sp.               0.1625
-epifita_canonAechmea fasciata           0.2447
-epifita_canonAsplenium sp.              0.1061
-epifita_canonGuzmania sp.               0.1120
-epifita_canonLaelia sp.                 0.2250
-epifita_canonBillbergia nutans          0.2608
-epifita_canonNeoregelia carolinae       0.2047
-parque_normParque de Conquistadores     0.8037
-parque_normParque Lineal El Refugio     2.9328
-scale(altura_planta)                    1.4284
-ubicacion_en_el_arbolrama interna       1.1863
-ubicacion_en_el_arbolfuste              1.8526
-cortezaLisa                             0.6174
-                                    lower .95
-epifita_canonCattleya sp.              2.3030
-epifita_canonAechmea fasciata          1.3406
-epifita_canonAsplenium sp.             3.8708
-epifita_canonGuzmania sp.              3.2141
-epifita_canonLaelia sp.                1.3687
-epifita_canonBillbergia nutans         0.8881
-epifita_canonNeoregelia carolinae      1.3948
-parque_normParque de Conquistadores    0.6572
-parque_normParque Lineal El Refugio    0.1101
-scale(altura_planta)                   0.5232
-ubicacion_en_el_arbolrama interna      0.3582
-ubicacion_en_el_arbolfuste             0.2379
-cortezaLisa                            0.9148
-                                    upper .95
-epifita_canonCattleya sp.             16.4492
-epifita_canonAechmea fasciata         12.4560
-epifita_canonAsplenium sp.            22.9387
-epifita_canonGuzmania sp.             24.8089
-epifita_canonLaelia sp.               14.4364
-epifita_canonBillbergia nutans        16.5513
-epifita_canonNeoregelia carolinae     17.1115
-parque_normParque de Conquistadores    2.3556
-parque_normParque Lineal El Refugio    1.0558
-scale(altura_planta)                   0.9367
-ubicacion_en_el_arbolrama interna      1.9838
-ubicacion_en_el_arbolfuste             1.2247
-cortezaLisa                            2.8674
+                                    exp(coef) exp(-coef)
+epifita_canonCattleya sp.              6.1548     0.1625
+epifita_canonAechmea fasciata          4.0863     0.2447
+epifita_canonAsplenium sp.             9.4229     0.1061
+epifita_canonGuzmania sp.              8.9296     0.1120
+epifita_canonLaelia sp.                4.4451     0.2250
+epifita_canonBillbergia nutans         3.8339     0.2608
+epifita_canonNeoregelia carolinae      4.8853     0.2047
+parque_normParque de Conquistadores    1.2442     0.8037
+parque_normParque Lineal El Refugio    0.3410     2.9328
+scale(altura_planta)                   0.7001     1.4284
+ubicacion_en_el_arbolrama interna      0.8430     1.1863
+ubicacion_en_el_arbolfuste             0.5398     1.8526
+cortezaLisa                            1.6196     0.6174
+                                    lower .95 upper .95
+epifita_canonCattleya sp.              2.3030   16.4492
+epifita_canonAechmea fasciata          1.3406   12.4560
+epifita_canonAsplenium sp.             3.8708   22.9387
+epifita_canonGuzmania sp.              3.2141   24.8089
+epifita_canonLaelia sp.                1.3687   14.4364
+epifita_canonBillbergia nutans         0.8881   16.5513
+epifita_canonNeoregelia carolinae      1.3948   17.1115
+parque_normParque de Conquistadores    0.6572    2.3556
+parque_normParque Lineal El Refugio    0.1101    1.0558
+scale(altura_planta)                   0.5232    0.9367
+ubicacion_en_el_arbolrama interna      0.3582    1.9838
+ubicacion_en_el_arbolfuste             0.2379    1.2247
+cortezaLisa                            0.9148    2.8674
 
 Concordance= 0.764  (se = 0.03 )
 Likelihood ratio test= 52.85  on 13 df,   p=1e-06

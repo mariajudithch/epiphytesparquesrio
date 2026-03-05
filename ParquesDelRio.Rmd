@@ -360,6 +360,113 @@ lr_especie <- survdiff(Surv(time_months, status_natural) ~ epifita_canon, data =
 capture.output(lr_especie, file = "output/logrank_epifita.txt")
 ```
 
+plot 2 por sugerencia del revisor
+
+```{r}
+# install.packages("ggrepel")  # si no lo tienes
+# library(ggrepel)
+fit_especie <- survfit(Surv(time_months, status_natural) ~ epifita_canon, data = df_surv)
+
+p_especie <- ggsurvplot(
+  fit_especie, data = df_surv,
+  risk.table = FALSE,
+  xlab = "Meses desde establecimiento",
+  ylab = "Prob. de supervivencia (natural)",
+  legend = "none"   # <- clave: quitamos leyenda
+)
+# Datos que usa ggsurvplot (ya vienen en el objeto)
+km_df <- p_especie$plot$data
+
+# Tomar el último punto (máximo tiempo) por especie/estrato
+end_labs <- km_df |>
+  dplyr::group_by(strata) |>
+  dplyr::filter(time == max(time, na.rm = TRUE)) |>
+  dplyr::slice_tail(n = 1) |>
+  dplyr::ungroup() |>
+  dplyr::mutate(
+    especie = gsub("^epifita_canon=", "", strata),
+    time_lab = time + 6   # <- antes era +2; ahora más a la derecha
+  )
+
+
+p_especie$plot <- p_especie$plot +
+  geom_text_repel(
+    data = end_labs,
+    aes(x = time_lab, y = surv, label = especie, color = strata),
+    direction = "y",
+    hjust = 0,
+    size = 3.4,
+    fontface = "italic",   # <- cursiva
+    segment.size = 0.2,
+    box.padding = 0.3,
+    point.padding = 0.2,
+    max.overlaps = Inf
+  ) +
+  coord_cartesian(clip = "off") +
+  theme(plot.margin = margin(5.5, 120, 5.5, 5.5)) +
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.18)))
+
+
+p_especie
+
+```
+
+por parque
+
+```{r}
+library(survival)
+library(survminer)
+library(dplyr)
+library(ggrepel)
+
+# 1) KM por PARQUE
+fit_parque <- survfit(Surv(time_months, status_natural) ~ parque_norm, data = df_surv)
+
+p_parque <- ggsurvplot(
+  fit_parque, data = df_surv,
+  risk.table = FALSE,
+  legend = "none",
+  xlab = "Meses desde establecimiento",
+  ylab = "Prob. de supervivencia (natural)",
+  legend.title = "Parque"
+)
+
+# 2) Datos del plot y etiquetas al final de cada curva
+km_df <- p_parque$plot$data
+
+end_labs <- km_df |>
+  group_by(strata) |>
+  filter(time == max(time, na.rm = TRUE)) |>
+  slice_tail(n = 1) |>
+  ungroup() |>
+  mutate(
+    parque = gsub("^parque_norm=", "", strata),
+    time_lab = time + 6  # mueve a la derecha (ajusta a +8 si quieres)
+  )
+
+# 3) Añadir etiquetas en cursiva (si quieres cursiva; si no, quita fontface)
+p_parque$plot <- p_parque$plot +
+  geom_text_repel(
+    data = end_labs,
+    aes(x = time_lab, y = surv, label = parque, color = strata),
+    direction = "y",
+    hjust = 0,
+    size = 3.4,
+    fontface = "plain",        # <- si no quieres cursiva para parques, cámbialo a "plain"
+    segment.size = 0.2,
+    box.padding = 0.3,
+    point.padding = 0.2,
+    max.overlaps = Inf
+  ) +
+  coord_cartesian(clip = "off") +
+  theme(plot.margin = margin(5.5, 120, 5.5, 5.5)) +
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.18)))
+
+p_parque
+```
+
+
+
 ## 6.1) Supervivencia a 12/24/60/84 meses
 
 ```{r}
@@ -895,7 +1002,6 @@ write.csv(extract_km_points(fit_fruc) |>
             mutate(epifita=sub("^epifita_canon=", "", epifita)),
           "output/KM_primer_fruc_S12_24_60_84.csv", row.names=FALSE)
 ```
-
 
 # 8) Crecimiento
 

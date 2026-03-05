@@ -2,32 +2,23 @@ Call:
 survdiff(formula = Surv(time_months, status_natural) ~ epifita_canon, 
     data = df_surv)
 
-                                     N Observed
-epifita_canon=Anthurium salvinii   116        7
-epifita_canon=Cattleya sp.          72       19
-epifita_canon=Aechmea fasciata      31        6
-epifita_canon=Asplenium sp.         30       12
-epifita_canon=Guzmania sp.          21        9
-epifita_canon=Laelia sp.            15        3
-epifita_canon=Billbergia nutans     14        3
-epifita_canon=Neoregelia carolinae  11        4
-                                   Expected (O-E)^2/E
-epifita_canon=Anthurium salvinii      26.86  14.68572
-epifita_canon=Cattleya sp.            12.94   2.84017
-epifita_canon=Aechmea fasciata         6.42   0.02733
-epifita_canon=Asplenium sp.            5.07   9.48776
-epifita_canon=Guzmania sp.             4.12   5.76698
-epifita_canon=Laelia sp.               2.35   0.17698
-epifita_canon=Billbergia nutans        2.92   0.00219
-epifita_canon=Neoregelia carolinae     2.32   1.22283
-                                   (O-E)^2/V
-epifita_canon=Anthurium salvinii    27.75364
-epifita_canon=Cattleya sp.           3.85769
-epifita_canon=Aechmea fasciata       0.03281
-epifita_canon=Asplenium sp.         11.16356
-epifita_canon=Guzmania sp.           6.65642
-epifita_canon=Laelia sp.             0.19813
-epifita_canon=Billbergia nutans      0.00248
-epifita_canon=Neoregelia carolinae   1.37286
+                                     N Observed Expected
+epifita_canon=Anthurium salvinii   116        7    26.86
+epifita_canon=Cattleya sp.          72       19    12.94
+epifita_canon=Aechmea fasciata      31        6     6.42
+epifita_canon=Asplenium sp.         30       12     5.07
+epifita_canon=Guzmania sp.          21        9     4.12
+epifita_canon=Laelia sp.            15        3     2.35
+epifita_canon=Billbergia nutans     14        3     2.92
+epifita_canon=Neoregelia carolinae  11        4     2.32
+                                   (O-E)^2/E (O-E)^2/V
+epifita_canon=Anthurium salvinii    14.68572  27.75364
+epifita_canon=Cattleya sp.           2.84017   3.85769
+epifita_canon=Aechmea fasciata       0.02733   0.03281
+epifita_canon=Asplenium sp.          9.48776  11.16356
+epifita_canon=Guzmania sp.           5.76698   6.65642
+epifita_canon=Laelia sp.             0.17698   0.19813
+epifita_canon=Billbergia nutans      0.00219   0.00248
+epifita_canon=Neoregelia carolinae   1.22283   1.37286
 
  Chisq= 37.1  on 7 degrees of freedom, p= 4e-06 
