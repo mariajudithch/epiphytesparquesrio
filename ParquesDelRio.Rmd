@@ -18,6 +18,7 @@ library(survminer)
 library(cowplot)
 library(patchwork)
 library(RColorBrewer)
+library(ggrepel)
 
 dir.create("output", showWarnings = FALSE, recursive = TRUE)
 dir.create("plots",  showWarnings = FALSE, recursive = TRUE)
@@ -465,6 +466,94 @@ p_parque$plot <- p_parque$plot +
 p_parque
 ```
 
+Figure 3 as reviewre suggested
+
+```{r}
+library(survival)
+library(survminer)
+library(dplyr)
+library(ggrepel)
+library(ggplot2)
+
+# ---------- Función base ----------
+plot_km_parque <- function(xlab_txt, ylab_txt) {
+
+  fit_parque <- survfit(Surv(time_months, status_natural) ~ parque_norm, data = df_surv)
+
+  p_parque <- ggsurvplot(
+    fit_parque, data = df_surv,
+    risk.table = FALSE,
+    legend = "none",
+    xlab = xlab_txt,
+    ylab = ylab_txt
+  )
+
+  km_df <- p_parque$plot$data
+
+  end_labs <- km_df |>
+    group_by(strata) |>
+    filter(time == max(time, na.rm = TRUE)) |>
+    slice_tail(n = 1) |>
+    ungroup() |>
+    mutate(
+      parque = gsub("^parque_norm=", "", strata),
+      time_lab = time + 6
+    )
+
+  p_parque$plot +
+    geom_text_repel(
+      data = end_labs,
+      aes(x = time_lab, y = surv, label = parque, color = strata),
+      direction = "y",
+      hjust = 0,
+      size = 3.4,
+      fontface = "plain",
+      segment.size = 0.2,
+      box.padding = 0.3,
+      point.padding = 0.2,
+      max.overlaps = Inf,
+      show.legend = FALSE
+    ) +
+    coord_cartesian(clip = "off") +
+    theme(
+      plot.margin = margin(5.5, 120, 5.5, 5.5),
+      legend.position = "none"
+    ) +
+    scale_x_continuous(expand = expansion(mult = c(0.02, 0.18)))
+}
+
+# ---------- Español ----------
+fig_parque_es <- plot_km_parque(
+  xlab_txt = "Meses desde establecimiento",
+  ylab_txt = "Prob. de supervivencia (natural)"
+)
+
+# ---------- Inglés ----------
+fig_parque_en <- plot_km_parque(
+  xlab_txt = "Months since establishment",
+  ylab_txt = "Survival probability (natural)"
+)
+
+# Mostrar
+fig_parque_es
+fig_parque_en
+
+ggsave(
+  filename = "plots/Figura3_supervivencia_parques_es.png",
+  plot = fig_parque_es,
+  width = 25, height = 12, units = "cm",
+  dpi = 600,
+  bg = "white"
+)
+
+ggsave(
+  filename = "plots/Figure3_survival_parks_en.png",
+  plot = fig_parque_en,
+  width = 25, height = 12, units = "cm",
+  dpi = 600,
+  bg = "white"
+)
+```
 
 
 ## 6.1) Supervivencia a 12/24/60/84 meses
@@ -856,6 +945,8 @@ final
 ggsave("plots/Fenologia2023_final2.png", final, width = 14, height = 4.6, units = "in", dpi = 300, bg = "white")
 ```
 
+plot previo
+
 ```{r}
 pt_size <- 2.6
 
@@ -907,6 +998,115 @@ final   <- cowplot::plot_grid(paneles, legend_shared, ncol = 2, rel_widths = c(1
 final
 ggsave("plots/Fenologia.png", final, width = 14.5, height = 5, units = "in", dpi = 300, bg = "white")
 ```
+
+Figure 4 as suggested by reviewer
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(cowplot)
+
+pt_size <- 2.6
+
+# 1) Unión de especies y niveles iguales en ambos datasets
+especies_flor <- flor1 |> dplyr::filter(!is.na(Floracion), Floracion > 0) |> dplyr::pull(Especie)
+especies_fru  <- fru1  |> dplyr::filter(!is.na(Fructificacion), Fructificacion > 0) |> dplyr::pull(Especie)
+orden_master  <- unique(c(especies_flor, especies_fru))
+
+flor_plot_base <- flor1 |>
+  dplyr::filter(!is.na(Floracion), Floracion > 0) |>
+  dplyr::mutate(Especie = factor(Especie, levels = orden_master))
+
+fru_plot_base <- fru1 |>
+  dplyr::filter(!is.na(Fructificacion), Fructificacion > 0) |>
+  dplyr::mutate(Especie = factor(Especie, levels = orden_master))
+
+# 2) Función para armar la figura en el idioma deseado
+hacer_fig_fenologia <- function(
+  xlab_txt,
+  ylab_flor_txt,
+  ylab_fruc_txt,
+  legend_txt
+) {
+
+  plot1 <- ggplot(flor_plot_base, aes(Fecha, Floracion, color = Especie)) +
+    geom_point(size = pt_size, position = position_jitter(width = 10, height = 0, seed = 1)) +
+    scale_x_date(date_breaks = "1 year", date_labels = "%Y", expand = expansion(mult = c(.02, .02))) +
+    labs(x = xlab_txt, y = ylab_flor_txt, color = legend_txt) +
+    theme_light(base_size = 11) +
+    theme(
+      panel.grid.minor = element_blank(),
+      legend.position = "bottom",
+      legend.text = element_text(face = "italic", size = 9)
+    )
+
+  plot2 <- ggplot(fru_plot_base, aes(Fecha, Fructificacion, color = Especie)) +
+    geom_point(size = pt_size, position = position_jitter(width = 10, height = 0, seed = 2)) +
+    scale_x_date(date_breaks = "1 year", date_labels = "%Y", expand = expansion(mult = c(.02, .02))) +
+    labs(x = xlab_txt, y = ylab_fruc_txt) +
+    theme_light(base_size = 11) +
+    theme(
+      panel.grid.minor = element_blank(),
+      legend.position = "none"
+    )
+
+  plot1_clean <- plot1 +
+    guides(fill = "none", shape = "none", linetype = "none", size = "none", alpha = "none") +
+    theme(legend.position = "right")
+
+  legend_shared <- cowplot::get_legend(plot1_clean)
+
+  p1_noleg <- plot1 + theme(legend.position = "none")
+  p2_noleg <- plot2
+
+  paneles <- cowplot::plot_grid(p1_noleg, p2_noleg, ncol = 2, align = "hv", labels = "AUTO")
+  final <- cowplot::plot_grid(paneles, legend_shared, ncol = 2, rel_widths = c(1, 0.23))
+
+  return(final)
+}
+
+# 3) Español
+fig_fen_es <- hacer_fig_fenologia(
+  xlab_txt      = "Fecha",
+  ylab_flor_txt = "Floración",
+  ylab_fruc_txt = "Fructificación",
+  legend_txt    = "Especie"
+)
+
+# 4) Inglés
+fig_fen_en <- hacer_fig_fenologia(
+  xlab_txt      = "Date",
+  ylab_flor_txt = "Flowering",
+  ylab_fruc_txt = "Fruiting",
+  legend_txt    = "Species"
+)
+
+# 5) Ver figuras
+fig_fen_es
+fig_fen_en
+
+# 6) Guardar en PNG
+ggsave(
+  filename = "plots/Figura4_fenologia_es.png",
+  plot = fig_fen_es,
+  width = 11, height = 4.2,
+  units = "in",
+  dpi = 300,
+  bg = "white"
+)
+
+ggsave(
+  filename = "plots/Figure4_phenology_en.png",
+  plot = fig_fen_en,
+  width = 11, height = 4.2,
+  units = "in",
+  dpi = 300,
+  bg = "white"
+)
+```
+
+
+
 
 ## 7.1) Fenología a primer evento
 
