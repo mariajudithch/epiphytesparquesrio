@@ -1387,7 +1387,7 @@ p_resp <- resp_espec %>%
 ggsave("plots/crecimiento_respondedores_especie.png", p_resp, width = 6, height = 5, dpi = 300)
 ```
 
-# 9) Text
+# 9) Texto y figura graphical abstract
 
 ```{r}
 # ---- Redacción de Resultados leyendo SOLO outputs previos ----
@@ -1612,7 +1612,422 @@ writeLines(texto, "output/resultados_redactados.md")
 cat(texto, sep = "\n")
 ```
 
+Graphical abstract
 
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(scales)
+library(patchwork)
+
+fecha_inicio <- as.Date("2016-03-01")
+fecha_corte  <- as.Date("2023-07-01")
+
+# base por individuo
+base_abs <- df %>%
+  distinct(ind_id, epifita_canon) %>%
+  left_join(df_causas %>% select(ind_id, causa_final, primer_evento_fecha), by = "ind_id") %>%
+  mutate(
+    fecha_evento = case_when(
+      causa_final %in% c("muerte_natural", "antropico", "desaparecido") ~ primer_evento_fecha,
+      TRUE ~ as.Date(NA)
+    )
+  )
+
+# tiempos de monitoreo
+tiempos <- fechas_lookup %>%
+  arrange(fecha) %>%
+  distinct(fecha)
+
+
+incid_abs <- expand_grid(
+  ind_id = base_abs$ind_id,
+  fecha = tiempos$fecha
+) %>%
+  left_join(base_abs, by = "ind_id") %>%
+  mutate(
+    muerte_natural_acum = if_else(
+      !is.na(fecha_evento) &
+        causa_final == "muerte_natural" &
+        fecha_evento <= fecha,
+      1, 0
+    ),
+    perdida_total_acum = if_else(
+      !is.na(fecha_evento) &
+        causa_final %in% c("muerte_natural", "antropico", "desaparecido") &
+        fecha_evento <= fecha,
+      1, 0
+    )
+  ) %>%
+  group_by(epifita_canon, fecha) %>%
+  summarise(
+    n_inicial = n_distinct(ind_id),
+    muerte_natural = sum(muerte_natural_acum, na.rm = TRUE),
+    perdida_total = sum(perdida_total_acum, na.rm = TRUE),
+    prop_muerte_natural = muerte_natural / n_inicial,
+    prop_perdida_total = perdida_total / n_inicial,
+    .groups = "drop"
+  ) %>%
+  mutate(
+    meses = as.numeric((fecha - fecha_inicio) / 30.4375)
+  )
+
+p_nat <- ggplot(incid_abs, aes(x = meses, y = prop_muerte_natural, color = epifita_canon)) +
+  geom_step(linewidth = 0.9) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    x = "Meses desde establecimiento",
+    y = "Muerte natural acumulada",
+    color = "Especie"
+  ) +
+  theme_light(base_size = 11) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        legend.text = element_text(face = "italic"))
+
+
+p_tot <- ggplot(incid_abs, aes(x = meses, y = prop_perdida_total, color = epifita_canon)) +
+  geom_step(linewidth = 0.9) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    x = "Meses desde establecimiento",
+    y = "Pérdida total acumulada",
+    color = "Especie"
+  ) +
+  theme_light(base_size = 11) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "none")
+
+fig_abs <- p_nat / p_tot + plot_layout(heights = c(1, 1))
+fig_abs
+
+incid_long <- incid_abs %>%
+  select(epifita_canon, meses, prop_muerte_natural, prop_perdida_total) %>%
+  pivot_longer(
+    cols = c(prop_muerte_natural, prop_perdida_total),
+    names_to = "tipo",
+    values_to = "proporcion"
+  ) %>%
+  mutate(
+    tipo = recode(tipo,
+      prop_muerte_natural = "Muerte natural",
+      prop_perdida_total = "Pérdida total"
+    )
+  )
+
+ggplot(incid_long, aes(x = meses, y = proporcion, color = epifita_canon, linetype = tipo)) +
+  geom_step(linewidth = 0.9) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(
+    x = "Meses desde establecimiento",
+    y = "Proporción acumulada",
+    color = "Especie",
+    linetype = "Tipo de pérdida"
+  ) +
+  theme_light(base_size = 11) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        legend.text = element_text(face = "italic"))
+```
+
+una sola figura con valores absolutos y en fuente arial para el graphical abstract
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(lubridate)
+library(ggplot2)
+library(scales)
+
+# --------------------------------------------------
+# FUENTE: Arial
+# --------------------------------------------------
+# En Windows suele bastar con esto:
+windowsFonts(Arial = windowsFont("Arial"))
+
+# --------------------------------------------------
+# FECHAS BASE
+# --------------------------------------------------
+fecha_inicio <- as.Date("2016-03-01")
+fecha_corte  <- as.Date("2023-07-01")
+
+# --------------------------------------------------
+# 1) Base por individuo
+# --------------------------------------------------
+base_sup <- df %>%
+  distinct(ind_id) %>%
+  left_join(
+    df_causas %>% select(ind_id, causa_final, primer_evento_fecha),
+    by = "ind_id"
+  )
+
+# --------------------------------------------------
+# 2) Detectar individuos con pérdida final pero sin fecha explícita
+# --------------------------------------------------
+ids_problematicos <- base_sup %>%
+  filter(causa_final %in% c("antropico", "desaparecido"), is.na(primer_evento_fecha)) %>%
+  pull(ind_id)
+
+# --------------------------------------------------
+# 3) Columnas que indican presencia/actividad
+# --------------------------------------------------
+cols_presencia <- names(df)[str_detect(
+  names(df),
+  regex(
+    "nuevas_hojas|nuevas_raices|floracion|fructificacion|estado_fitosanitario|numero_de_hojas_tallos_clones",
+    ignore_case = TRUE
+  )
+)]
+
+# mapa de sufijos -> índice de monitoreo
+mapa_monitoreo <- tibble::tribble(
+  ~sufijo,        ~monitoreo_idx,
+  "1",                     1,
+  "2",                     2,
+  "3",                     3,
+  "4",                     4,
+  "05_2017",               5,
+  "06_2017",               6,
+  "12_2017",               7,
+  "05_02_2018",            8,
+  "12_07_2018",            9,
+  "12_12_2018",           10,
+  "2023",                 11
+)
+
+# --------------------------------------------------
+# 4) Última presencia observada
+# --------------------------------------------------
+ultima_presencia <- df %>%
+  filter(ind_id %in% ids_problematicos) %>%
+  select(ind_id, all_of(cols_presencia)) %>%
+  mutate(across(all_of(cols_presencia), as.character)) %>%
+  pivot_longer(
+    cols = -ind_id,
+    names_to = "col",
+    values_to = "val"
+  ) %>%
+  mutate(
+    sufijo = str_extract(
+      col,
+      "(1|2|3|4|05_2017|06_2017|12_2017|05_02_2018|12_07_2018|12_12_2018|2023)$"
+    )
+  ) %>%
+  left_join(mapa_monitoreo, by = "sufijo") %>%
+  mutate(
+    presente = case_when(
+      is.na(val) ~ FALSE,
+      str_trim(val) %in% c("", "NA", "NaN") ~ FALSE,
+      TRUE ~ TRUE
+    )
+  ) %>%
+  filter(presente, !is.na(monitoreo_idx)) %>%
+  group_by(ind_id) %>%
+  summarise(
+    ultimo_idx_presente = max(monitoreo_idx, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  left_join(fechas_lookup, by = c("ultimo_idx_presente" = "monitoreo_idx")) %>%
+  rename(fecha_ultima_presencia = fecha)
+
+# --------------------------------------------------
+# 5) Imputar fecha de salida
+# --------------------------------------------------
+imputaciones <- ultima_presencia %>%
+  mutate(
+    dias_intervalo = as.numeric(fecha_corte - fecha_ultima_presencia),
+    fecha_imputada = fecha_ultima_presencia + round(dias_intervalo / 2)
+  )
+
+# --------------------------------------------------
+# 6) Integrar fechas finales
+# --------------------------------------------------
+base_sup_imp <- base_sup %>%
+  left_join(
+    imputaciones %>% select(ind_id, fecha_imputada),
+    by = "ind_id"
+  ) %>%
+  mutate(
+    fecha_fin_natural = case_when(
+      causa_final == "muerte_natural" ~ coalesce(primer_evento_fecha, fecha_corte),
+      TRUE ~ as.Date(NA)
+    ),
+    fecha_fin_total = case_when(
+      causa_final == "muerte_natural" ~ coalesce(primer_evento_fecha, fecha_corte),
+      causa_final %in% c("antropico", "desaparecido") ~ coalesce(primer_evento_fecha, fecha_imputada, fecha_corte),
+      TRUE ~ as.Date(NA)
+    )
+  )
+
+# --------------------------------------------------
+# 7) Eje temporal ampliado
+# --------------------------------------------------
+tiempos_imp <- tibble(
+  fecha = sort(unique(c(
+    fechas_lookup$fecha,
+    base_sup_imp$fecha_fin_total,
+    base_sup_imp$fecha_fin_natural
+  )))
+) %>%
+  filter(!is.na(fecha))
+
+# --------------------------------------------------
+# 8) Construir supervivencia acumulada
+# --------------------------------------------------
+sup_abs_imp <- expand_grid(
+  ind_id = base_sup_imp$ind_id,
+  fecha = tiempos_imp$fecha
+) %>%
+  left_join(base_sup_imp, by = "ind_id") %>%
+  mutate(
+    sobrevive_natural = if_else(
+      is.na(fecha_fin_natural) | fecha < fecha_fin_natural,
+      1, 0
+    ),
+    sobrevive_total = if_else(
+      is.na(fecha_fin_total) | fecha < fecha_fin_total,
+      1, 0
+    )
+  ) %>%
+  group_by(fecha) %>%
+  summarise(
+    n = n(),
+    surv_natural = mean(sobrevive_natural, na.rm = TRUE),
+    surv_total   = mean(sobrevive_total, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    meses = as.numeric((fecha - fecha_inicio) / 30.4375)
+  )
+
+# --------------------------------------------------
+# 9) Datos en español
+# --------------------------------------------------
+sup_abs_es <- sup_abs_imp %>%
+  pivot_longer(
+    cols = c(surv_natural, surv_total),
+    names_to = "tipo",
+    values_to = "supervivencia"
+  ) %>%
+  mutate(
+    tipo = recode(
+      tipo,
+      surv_natural = "Supervivencia natural",
+      surv_total   = "Supervivencia observada total"
+    )
+  )
+
+# --------------------------------------------------
+# 10) Datos en inglés
+# --------------------------------------------------
+sup_abs_en <- sup_abs_imp %>%
+  pivot_longer(
+    cols = c(surv_natural, surv_total),
+    names_to = "tipo",
+    values_to = "supervivencia"
+  ) %>%
+  mutate(
+    tipo = recode(
+      tipo,
+      surv_natural = "Natural survival",
+      surv_total   = "Observed total survival"
+    )
+  )
+
+# --------------------------------------------------
+# 11) Figura en español
+# --------------------------------------------------
+fig_supervivencia_doble_es <- ggplot(
+  sup_abs_es,
+  aes(x = meses, y = supervivencia, color = tipo, linetype = tipo)
+) +
+  geom_step(linewidth = 1.1) +
+  geom_point(
+    data = sup_abs_es %>% group_by(tipo) %>% slice_tail(n = 1),
+    size = 2
+  ) +
+  scale_y_continuous(
+    labels = percent_format(accuracy = 1),
+    limits = c(0, 1)
+  ) +
+  labs(
+    x = "Meses desde establecimiento",
+    y = "Supervivencia",
+    color = NULL,
+    linetype = NULL
+  ) +
+  theme_light(base_size = 12) +
+  theme(
+    text = element_text(family = "Arial"),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom"
+  )
+
+# --------------------------------------------------
+# 12) Figura en inglés
+# --------------------------------------------------
+fig_survival_double_en <- ggplot(
+  sup_abs_en,
+  aes(x = meses, y = supervivencia, color = tipo, linetype = tipo)
+) +
+  geom_step(linewidth = 1.1) +
+  geom_point(
+    data = sup_abs_en %>% group_by(tipo) %>% slice_tail(n = 1),
+    size = 2
+  ) +
+  scale_y_continuous(
+    labels = percent_format(accuracy = 1),
+    limits = c(0, 1)
+  ) +
+  labs(
+    x = "Months since establishment",
+    y = "Survival",
+    color = NULL,
+    linetype = NULL
+  ) +
+  theme_light(base_size = 12) +
+  theme(
+    text = element_text(family = "Arial"),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom"
+  )
+
+# --------------------------------------------------
+# 13) Mostrar
+# --------------------------------------------------
+fig_supervivencia_doble_es
+fig_survival_double_en
+
+# --------------------------------------------------
+# 14) Guardar PNG
+# --------------------------------------------------
+ggsave(
+  filename = "plots/Figura_supervivencia_natural_vs_total.png",
+  plot = fig_supervivencia_doble_es,
+  width = 8,
+  height = 5,
+  units = "in",
+  dpi = 300,
+  bg = "white"
+)
+
+ggsave(
+  filename = "plots/Figure_survival_natural_vs_total.png",
+  plot = fig_survival_double_en,
+  width = 6,
+  height = 3.5,
+  units = "in",
+  dpi = 300,
+  bg = "white"
+)
+
+# --------------------------------------------------
+# 15) Comprobación rápida
+# --------------------------------------------------
+sup_abs_imp %>% slice_tail(n = 1)
+```
 
 
 
