@@ -5,51 +5,36 @@ coxph(formula = Surv(time_months, status_natural) ~ epifita_canon +
 
   n= 309, number of events= 63 
 
-                                       coef exp(coef)
-epifita_canonCattleya sp.            1.8172    6.1548
-epifita_canonAechmea fasciata        1.4076    4.0863
-epifita_canonAsplenium sp.           2.2431    9.4229
-epifita_canonGuzmania sp.            2.1894    8.9296
-epifita_canonLaelia sp.              1.4918    4.4451
-epifita_canonBillbergia nutans       1.3439    3.8339
-epifita_canonNeoregelia carolinae    1.5862    4.8853
-parque_normParque de Conquistadores  0.2185    1.2442
-parque_normParque Lineal El Refugio -1.0760    0.3410
-scale(altura_planta)                -0.3566    0.7001
-ubicacion_en_el_arbolrama interna   -0.1708    0.8430
-ubicacion_en_el_arbolfuste          -0.6166    0.5398
-cortezaLisa                          0.4822    1.6196
-                                    se(coef) robust se
-epifita_canonCattleya sp.             0.4476    0.5016
-epifita_canonAechmea fasciata         0.5608    0.5687
-epifita_canonAsplenium sp.            0.4847    0.4539
-epifita_canonGuzmania sp.             0.5199    0.5213
-epifita_canonLaelia sp.               0.6982    0.6010
-epifita_canonBillbergia nutans        0.6963    0.7462
-epifita_canonNeoregelia carolinae     0.6322    0.6396
-parque_normParque de Conquistadores   0.3747    0.3256
-parque_normParque Lineal El Refugio   0.6151    0.5767
-scale(altura_planta)                  0.1717    0.1486
-ubicacion_en_el_arbolrama interna     0.3392    0.4367
-ubicacion_en_el_arbolfuste            0.3906    0.4180
-cortezaLisa                           0.2743    0.2914
-                                         z Pr(>|z|)    
-epifita_canonCattleya sp.            3.623 0.000291 ***
-epifita_canonAechmea fasciata        2.475 0.013310 *  
-epifita_canonAsplenium sp.           4.942 7.75e-07 ***
-epifita_canonGuzmania sp.            4.199 2.68e-05 ***
-epifita_canonLaelia sp.              2.482 0.013058 *  
-epifita_canonBillbergia nutans       1.801 0.071716 .  
-epifita_canonNeoregelia carolinae    2.480 0.013131 *  
-parque_normParque de Conquistadores  0.671 0.502204    
-parque_normParque Lineal El Refugio -1.866 0.062069 .  
-scale(altura_planta)                -2.400 0.016387 *  
-ubicacion_en_el_arbolrama interna   -0.391 0.695666    
-ubicacion_en_el_arbolfuste          -1.475 0.140200    
-cortezaLisa                          1.655 0.098014 .  
+                                       coef exp(coef) se(coef)
+epifita_canonCattleya sp.            1.8172    6.1548   0.4476
+epifita_canonAechmea fasciata        1.4076    4.0863   0.5608
+epifita_canonAsplenium sp.           2.2431    9.4229   0.4847
+epifita_canonGuzmania sp.            2.1894    8.9296   0.5199
+epifita_canonLaelia sp.              1.4918    4.4451   0.6982
+epifita_canonBillbergia nutans       1.3439    3.8339   0.6963
+epifita_canonNeoregelia carolinae    1.5862    4.8853   0.6322
+parque_normParque de Conquistadores  0.2185    1.2442   0.3747
+parque_normParque Lineal El Refugio -1.0760    0.3410   0.6151
+scale(altura_planta)                -0.3566    0.7001   0.1717
+ubicacion_en_el_arbolrama interna   -0.1708    0.8430   0.3392
+ubicacion_en_el_arbolfuste          -0.6166    0.5398   0.3906
+cortezaLisa                          0.4822    1.6196   0.2743
+                                    robust se      z Pr(>|z|)    
+epifita_canonCattleya sp.              0.5016  3.623 0.000291 ***
+epifita_canonAechmea fasciata          0.5687  2.475 0.013310 *  
+epifita_canonAsplenium sp.             0.4539  4.942 7.75e-07 ***
+epifita_canonGuzmania sp.              0.5213  4.199 2.68e-05 ***
+epifita_canonLaelia sp.                0.6010  2.482 0.013058 *  
+epifita_canonBillbergia nutans         0.7462  1.801 0.071716 .  
+epifita_canonNeoregelia carolinae      0.6396  2.480 0.013131 *  
+parque_normParque de Conquistadores    0.3256  0.671 0.502204    
+parque_normParque Lineal El Refugio    0.5767 -1.866 0.062069 .  
+scale(altura_planta)                   0.1486 -2.400 0.016387 *  
+ubicacion_en_el_arbolrama interna      0.4367 -0.391 0.695666    
+ubicacion_en_el_arbolfuste             0.4180 -1.475 0.140200    
+cortezaLisa                            0.2914  1.655 0.098014 .  
 ---
-Signif. codes:  
-0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
                                     exp(coef) exp(-coef)
 epifita_canonCattleya sp.              6.1548     0.1625
